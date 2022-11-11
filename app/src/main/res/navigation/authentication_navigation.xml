@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/signUpFragment">
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.dreambig.supplymanagementapp.AuthFragments.SignUpFragment.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_createAccountFragment"
+            app:destination="@id/createAccountFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_setUpDetailsFragment"
+            app:destination="@id/setUpDetailsFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_stockFragment"
+            app:destination="@id/stockFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createAccountFragment"
+        android:name="com.dreambig.supplymanagementapp.AuthFragments.SignUpFragment.CreateAccountFragment"
+        android:label="fragment_create_account"
+        tools:layout="@layout/fragment_create_account" >
+        <action
+            android:id="@+id/action_createAccountFragment_to_setUpDetailsFragment"
+            app:destination="@id/setUpDetailsFragment" />
+        <action
+            android:id="@+id/action_createAccountFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/setUpDetailsFragment"
+        android:name="com.dreambig.supplymanagementapp.AuthFragments.SignUpFragment.SetUpDetailsFragment"
+        android:label="fragment_set_up_details"
+        tools:layout="@layout/fragment_set_up_details" >
+        <action
+            android:id="@+id/action_setUpDetailsFragment_to_stockFragment"
+            app:destination="@id/stockFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.dreambig.supplymanagementapp.AuthFragments.SignInFragment.SignInFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signInFragment_to_stockFragment"
+            app:destination="@id/stockFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.dreambig.supplymanagementapp.AuthFragments.SignInFragment.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" />
+    <fragment
+        android:id="@+id/createNewPasswordFragment"
+        android:name="com.dreambig.supplymanagementapp.AuthFragments.SignInFragment.CreateNewPasswordFragment"
+        android:label="fragment_create_new_password"
+        tools:layout="@layout/fragment_create_new_password" />
+    <fragment
+        android:id="@+id/stockFragment"
+        android:name="com.dreambig.supplymanagementapp.StockFragments.StockFragment"
+        android:label="fragment_stock"
+        tools:layout="@layout/fragment_stock" />
+
+</navigation>

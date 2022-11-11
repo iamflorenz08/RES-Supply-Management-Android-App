@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "293170300165",
+    "project_id": "supply-management-app",
+    "storage_bucket": "supply-management-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293170300165:android:e7287f9461fec3a85f636c",
+        "android_client_info": {
+          "package_name": "com.dreambig.supplymanagementapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "293170300165-f34ju1aua766261n7ut5o04g1jh0fq89.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWx8w1BEpbpm64QIYYg__GEYSFAEmqkE4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "293170300165-f34ju1aua766261n7ut5o04g1jh0fq89.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
