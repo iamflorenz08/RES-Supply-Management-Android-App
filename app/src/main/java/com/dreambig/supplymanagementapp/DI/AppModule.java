@@ -31,7 +31,7 @@ public class AppModule {
     @Provides
     public Retrofit retrofitBuilder(){
         return new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:3000")
+                .baseUrl("https://supply-management-restapi.vercel.app")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
