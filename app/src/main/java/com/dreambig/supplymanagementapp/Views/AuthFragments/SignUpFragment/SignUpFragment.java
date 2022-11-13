@@ -1,6 +1,5 @@
-package com.dreambig.supplymanagementapp.AuthFragments.SignUpFragment;
+package com.dreambig.supplymanagementapp.Views.AuthFragments.SignUpFragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,7 +11,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +20,6 @@ import com.dreambig.supplymanagementapp.MainActivity;
 import com.dreambig.supplymanagementapp.Models.CheckAccountModel;
 import com.dreambig.supplymanagementapp.R;
 import com.dreambig.supplymanagementapp.databinding.FragmentSignUpBinding;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -84,9 +81,8 @@ public class SignUpFragment extends Fragment {
                 mViewModel.getmCheckAccount(account.getEmail()).observe(getViewLifecycleOwner(), new Observer<CheckAccountModel>() {
                     @Override
                     public void onChanged(CheckAccountModel checkAccountModel) {
-                        Log.d("MY_DEV", "ACCOUNT ");
                         if(checkAccountModel.getExist() && checkAccountModel.getGmail()){
-                            Navigation.findNavController(binding.getRoot()).navigate(R.id.action_signUpFragment_to_stockFragment);
+                            Navigation.findNavController(binding.getRoot()).setGraph(R.navigation.main_navigation);
                         }
                         else if(checkAccountModel.getExist() && !checkAccountModel.getGmail()){
                             mainActivity.googleSignOut();

@@ -1,4 +1,4 @@
-package com.dreambig.supplymanagementapp.AuthFragments.SignInFragment;
+package com.dreambig.supplymanagementapp.Views.AuthFragments.SignInFragment;
 
 import android.os.Bundle;
 
@@ -9,7 +9,6 @@ import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavAction;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -56,6 +55,18 @@ public class SignInFragment extends Fragment {
         //Sign In listener;
         signInListener();
 
+        //on back listener
+        backListener();
+
+    }
+
+    private void backListener() {
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).popBackStack();
+            }
+        });
     }
 
     private void signInListener() {
@@ -72,7 +83,7 @@ public class SignInFragment extends Fragment {
                         public void onChanged(Boolean isSuccess) {
                             binding.btnSignIn.setEnabled(true);
                             if(isSuccess){
-                                Navigation.findNavController(view).navigate(R.id.action_signInFragment_to_stockFragment);
+                                Navigation.findNavController(view).setGraph(R.navigation.main_navigation);
                             }
                             else{
                                 Toast.makeText(getContext(), "Invalid credentials", Toast.LENGTH_SHORT).show();

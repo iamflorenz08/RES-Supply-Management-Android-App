@@ -1,4 +1,4 @@
-package com.dreambig.supplymanagementapp.AuthFragments.SignUpFragment;
+package com.dreambig.supplymanagementapp.Views.AuthFragments.SignUpFragment;
 
 import android.os.Bundle;
 
@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -134,7 +133,7 @@ public class SetUpDetailsFragment extends Fragment {
                         public void onChanged(Boolean isSuccess) {
                             if(isSuccess){
                                 binding.btnComplete.setEnabled(true);
-                                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_setUpDetailsFragment_to_stockFragment);
+                                Navigation.findNavController(binding.getRoot()).setGraph(R.navigation.main_navigation);
                             }
                             else{
                                 binding.btnComplete.setEnabled(true);

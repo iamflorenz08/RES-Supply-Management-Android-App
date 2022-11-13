@@ -1,38 +1,24 @@
 package com.dreambig.supplymanagementapp;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.content.Intent;
-import android.content.IntentSender;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.dreambig.supplymanagementapp.AuthFragments.AuthViewModel;
-import com.dreambig.supplymanagementapp.AuthFragments.SignUpFragment.CreateAccountFragment;
+import com.dreambig.supplymanagementapp.Views.AuthFragments.AuthViewModel;
 import com.dreambig.supplymanagementapp.Models.CheckAccountModel;
 import com.dreambig.supplymanagementapp.databinding.ActivityMainBinding;
-import com.google.android.gms.auth.api.identity.BeginSignInRequest;
-import com.google.android.gms.auth.api.identity.BeginSignInResult;
-import com.google.android.gms.auth.api.identity.Identity;
-import com.google.android.gms.auth.api.identity.SignInClient;
-import com.google.android.gms.auth.api.identity.SignInCredential;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.CommonStatusCodes;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -60,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         //Initialize nav components
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(binding.fragmentContainerView.getId());
         navController = navHostFragment.getNavController();
+
 
         //Initialize google sign in
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -132,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(Boolean isSignedIn) {
                 if(isSignedIn)
-                    navController.navigate(R.id.stockFragment);
+                    navController.setGraph(R.navigation.main_navigation);
             }
         });
 
@@ -142,11 +129,18 @@ public class MainActivity extends AppCompatActivity {
             mViewModel.getmCheckAccount(account.getEmail()).observe(this, new Observer<CheckAccountModel>() {
                 @Override
                 public void onChanged(CheckAccountModel checkAccountModel) {
-                    Log.d("MY_DEV", "check account triggered");
-                    if(checkAccountModel.getExist() && checkAccountModel.getGmail())
-                        navController.navigate(R.id.action_signUpFragment_to_stockFragment);
+                    Log.d("MY_DEV","check triggered");
+                    if(checkAccountModel.getExist() && checkAccountModel.getGmail()){
+                        navController.setGraph(R.navigation.main_navigation);
+                    }
+                    else{
+                        navController.setGraph(R.navigation.authentication_navigation);
+                    }
                 }
             });
+        }
+        else{
+            navController.setGraph(R.navigation.authentication_navigation);
         }
     }
 

@@ -1,12 +1,8 @@
-package com.dreambig.supplymanagementapp.AuthFragments.SignUpFragment;
+package com.dreambig.supplymanagementapp.Views.AuthFragments.SignUpFragment;
 
-import android.util.Log;
-
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.dreambig.supplymanagementapp.AuthFragments.AuthViewModel;
 import com.dreambig.supplymanagementapp.Models.CheckAccountModel;
 import com.dreambig.supplymanagementapp.Repositories.AuthRepo;
 
@@ -25,8 +21,7 @@ public class SignUpViewModel extends ViewModel {
     }
 
     public MutableLiveData<CheckAccountModel> getmCheckAccount(String email) {
-        if(mCheckAccount == null)
-            mCheckAccount = authRepo.checkEmailExistence(email);
+        mCheckAccount = authRepo.checkEmailExistence(email);
         return mCheckAccount;
     }
 }

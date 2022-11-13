@@ -1,4 +1,4 @@
-package com.dreambig.supplymanagementapp.StockFragments;
+package com.dreambig.supplymanagementapp.Views.StockFragments;
 
 import androidx.lifecycle.ViewModel;
 

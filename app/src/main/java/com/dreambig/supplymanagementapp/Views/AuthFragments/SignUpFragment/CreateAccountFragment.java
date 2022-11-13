@@ -1,6 +1,5 @@
-package com.dreambig.supplymanagementapp.AuthFragments.SignUpFragment;
+package com.dreambig.supplymanagementapp.Views.AuthFragments.SignUpFragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,20 +9,15 @@ import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.dreambig.supplymanagementapp.MainActivity;
 import com.dreambig.supplymanagementapp.Models.CheckAccountModel;
 import com.dreambig.supplymanagementapp.R;
 import com.dreambig.supplymanagementapp.databinding.FragmentCreateAccountBinding;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import java.util.regex.Pattern;
 

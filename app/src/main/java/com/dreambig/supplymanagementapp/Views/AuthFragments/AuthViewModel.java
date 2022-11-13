@@ -1,12 +1,9 @@
-package com.dreambig.supplymanagementapp.AuthFragments;
-import android.util.Log;
+package com.dreambig.supplymanagementapp.Views.AuthFragments;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
 import com.dreambig.supplymanagementapp.Models.CheckAccountModel;
-import com.dreambig.supplymanagementapp.Models.UserModel;
 import com.dreambig.supplymanagementapp.Repositories.AuthRepo;
 import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;

@@ -1,4 +1,4 @@
-package com.dreambig.supplymanagementapp.AuthFragments.SignInFragment;
+package com.dreambig.supplymanagementapp.Views.AuthFragments.SignInFragment;
 
 import android.os.Bundle;
 

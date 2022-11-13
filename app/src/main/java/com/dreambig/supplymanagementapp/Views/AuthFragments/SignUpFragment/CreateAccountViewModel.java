@@ -1,10 +1,9 @@
-package com.dreambig.supplymanagementapp.AuthFragments.SignUpFragment;
+package com.dreambig.supplymanagementapp.Views.AuthFragments.SignUpFragment;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.dreambig.supplymanagementapp.AuthFragments.AuthViewModel;
 import com.dreambig.supplymanagementapp.Models.CheckAccountModel;
 import com.dreambig.supplymanagementapp.Repositories.AuthRepo;
 
