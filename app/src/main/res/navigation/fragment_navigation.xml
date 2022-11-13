@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_navigation"
+    app:startDestination="@id/stockFragment">
+
+    <fragment
+        android:id="@+id/stockFragment"
+        android:name="com.dreambig.supplymanagementapp.Views.StockFragments.StockFragment"
+        android:label="fragment_stock"
+        tools:layout="@layout/fragment_stock" />
+    <fragment
+        android:id="@+id/borrowsFragment"
+        android:name="com.dreambig.supplymanagementapp.Views.BorrowFragments.BorrowsFragment"
+        android:label="fragment_borrows"
+        tools:layout="@layout/fragment_borrows" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.dreambig.supplymanagementapp.Views.NotificationFragments.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.dreambig.supplymanagementapp.Views.SettingsFragment.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
+</navigation>

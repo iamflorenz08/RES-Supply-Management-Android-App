@@ -3,7 +3,9 @@ package com.dreambig.supplymanagementapp.DI;
 import android.app.Application;
 
 import com.dreambig.supplymanagementapp.Networks.AuthService;
+import com.dreambig.supplymanagementapp.Networks.SupplyService;
 import com.dreambig.supplymanagementapp.Repositories.AuthRepo;
+import com.dreambig.supplymanagementapp.Repositories.SupplyRepo;
 
 import javax.inject.Singleton;
 
@@ -18,6 +20,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @InstallIn(SingletonComponent.class)
 public class AppModule {
 
+    //Supplies
+    @Provides
+    public SupplyRepo getSupplyRepoInstance(SupplyService service){
+        return SupplyRepo.getInstance(service);
+    }
+
+    @Provides
+    public SupplyService getSupplyService(Retrofit retrofit){
+        return retrofit.create(SupplyService.class);
+    }
+
+    //Authentication
     @Provides
     public AuthRepo getInstance(AuthService authService, Application application){
         return AuthRepo.getInstance(authService, application);
@@ -28,6 +42,8 @@ public class AppModule {
         return retrofit.create(AuthService.class);
     }
 
+
+    //Retrofit
     @Provides
     public Retrofit retrofitBuilder(){
         return new Retrofit.Builder()
