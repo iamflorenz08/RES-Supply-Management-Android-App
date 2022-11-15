@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -56,6 +58,7 @@ public class StockFragment extends Fragment {
 
         //Init details
         init();
+        mViewModel.init();
 
         //set status bar
         setStatusBar();
@@ -65,9 +68,45 @@ public class StockFragment extends Fragment {
 
         //Live data observers
         suppliesObserver();
+        searchObserver();
 
         //Change View
         stockView();
+
+        //search
+        searchListener();
+    }
+
+    private void searchListener() {
+        binding.etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                mViewModel.search(binding.etSearch.getText().toString());
+            }
+        });
+    }
+
+    private void searchObserver() {
+        mViewModel.getmSearch().observe(getViewLifecycleOwner(), new Observer<ArrayList<SupplyModel>>() {
+            @Override
+            public void onChanged(ArrayList<SupplyModel> searchItems) {
+                if(searchItems == null)
+                    return;
+                supplyListAdapter.setItems(searchItems);
+                supplyCardAdapter.setItems(searchItems);
+
+            }
+        });
     }
 
     private void suppliesObserver() {
@@ -79,8 +118,8 @@ public class StockFragment extends Fragment {
                     supplyListAdapter.setItems(supplyModels);
                     supplyCardAdapter.setItems(supplyModels);
                     binding.refreshLayout.setRefreshing(false);
+                    mViewModel.search(binding.etSearch.getText().toString());
                 }
-                Log.d("MY_DEV","working");
             }
         });
     }

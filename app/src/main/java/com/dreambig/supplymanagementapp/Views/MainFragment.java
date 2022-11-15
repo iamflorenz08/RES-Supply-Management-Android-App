@@ -39,7 +39,6 @@ public class MainFragment extends Fragment {
         navHostFragment = (NavHostFragment) getChildFragmentManager().findFragmentById(binding.fragmentContainerView.getId());
         navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(binding.bottomNavigation, navController);
-
     }
 
 

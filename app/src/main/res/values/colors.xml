@@ -13,4 +13,5 @@
     <color name="secondary">#FFFFFFFF</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="hintColor">#CDD4D9</color>
+    <color name="mainBGcolor">#F9FAFB</color>
 </resources>
