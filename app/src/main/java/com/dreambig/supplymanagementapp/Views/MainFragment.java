@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
@@ -15,9 +16,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.dreambig.supplymanagementapp.R;
+import com.dreambig.supplymanagementapp.Views.SettingsFragment.SettingFragment;
 import com.dreambig.supplymanagementapp.databinding.FragmentMainBinding;
 
-public class MainFragment extends Fragment {
+import java.util.Set;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
+public class MainFragment extends Fragment{
 
     private MainViewModel mViewModel;
     private FragmentMainBinding binding;
@@ -35,11 +43,25 @@ public class MainFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
-
+        mViewModel.loadUserInfo();
         navHostFragment = (NavHostFragment) getChildFragmentManager().findFragmentById(binding.fragmentContainerView.getId());
         navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(binding.bottomNavigation, navController);
+
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
+                if(navDestination.getId() != R.id.stockFragment
+                        && navDestination.getId() != R.id.borrowsFragment
+                        && navDestination.getId() != R.id.notificationFragment
+                        && navDestination.getId() != R.id.settingFragment)
+                    binding.bottomNavigation.setVisibility(View.INVISIBLE);
+                else
+                    binding.bottomNavigation.setVisibility(View.VISIBLE);
+            }
+        });
     }
+
 
 
 }

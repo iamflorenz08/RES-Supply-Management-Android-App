@@ -56,6 +56,8 @@ public class StockFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(StockViewModel.class);
 
+        Log.d("MY_DEV", "ON VIEW CREATED");
+
         //Init details
         init();
         mViewModel.init();
@@ -73,8 +75,7 @@ public class StockFragment extends Fragment {
         //Change View
         stockView();
 
-        //search
-        searchListener();
+
     }
 
     private void searchListener() {
@@ -119,7 +120,11 @@ public class StockFragment extends Fragment {
                     supplyCardAdapter.setItems(supplyModels);
                     binding.refreshLayout.setRefreshing(false);
                     mViewModel.search(binding.etSearch.getText().toString());
+
+                    //search
+                    searchListener();
                 }
+                binding.progressBar.setVisibility(View.INVISIBLE);
             }
         });
     }

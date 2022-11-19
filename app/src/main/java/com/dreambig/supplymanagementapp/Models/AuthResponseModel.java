@@ -1,10 +1,10 @@
 package com.dreambig.supplymanagementapp.Models;
 
-public class CheckAccountModel {
+public class AuthResponseModel {
     private Boolean isExist;
     private Boolean isGmail;
 
-    public CheckAccountModel(Boolean isExist, Boolean isGmail) {
+    public AuthResponseModel(Boolean isExist, Boolean isGmail) {
         this.isExist = isExist;
         this.isGmail = isGmail;
     }
@@ -17,11 +17,11 @@ public class CheckAccountModel {
         isExist = exist;
     }
 
-    public Boolean getGmail() {
+    public Boolean getisGmail() {
         return isGmail;
     }
 
-    public void setGmail(Boolean gmail) {
+    public void setisGmail(Boolean gmail) {
         isGmail = gmail;
     }
 }

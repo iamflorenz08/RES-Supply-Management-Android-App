@@ -33,15 +33,15 @@ public class StockViewModel extends ViewModel {
     public void init(){
         if (mSearch == null)
             mSearch = new MutableLiveData<>();
+
+        if(mSupplies == null)
+            mSupplies = repo.getmSupplies();
+
         supplies = new ArrayList<>();
     }
 
     public void loadmSupplies(){
-        if(mSupplies == null){
-            repo.loadmSupplies();
-            mSupplies = repo.getmSupplies();
-            return;
-        }
+        repo.loadmSupplies();
     }
 
     public void refreshSuppliesData(){

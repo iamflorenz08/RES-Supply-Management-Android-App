@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.Fragment;
@@ -36,6 +37,7 @@ public class SetUpDetailsFragment extends Fragment {
     private SetUpViewModel mViewModel;
     private Bundle userData;
     private Observer<Boolean> ObserveAccountCreation;
+    private AlertDialog alertDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,6 +79,13 @@ public class SetUpDetailsFragment extends Fragment {
 
         //Back click listener
         backListener();
+
+        //dialog builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder = new AlertDialog.Builder(getContext());
+        builder.setView(R.layout.progress_loading);
+        builder.setCancelable(false);
+        alertDialog = builder.create();
     }
 
 
@@ -128,15 +137,16 @@ public class SetUpDetailsFragment extends Fragment {
                     }
 
                     binding.btnComplete.setEnabled(false);
+                    alertDialog.show();
                     ObserveAccountCreation = new Observer<Boolean>() {
                         @Override
                         public void onChanged(Boolean isSuccess) {
+                            alertDialog.dismiss();
+                            binding.btnComplete.setEnabled(true);
                             if(isSuccess){
-                                binding.btnComplete.setEnabled(true);
                                 Navigation.findNavController(binding.getRoot()).setGraph(R.navigation.main_navigation);
                             }
                             else{
-                                binding.btnComplete.setEnabled(true);
                                 Toast.makeText(getContext(), "Network error", Toast.LENGTH_SHORT).show();
                             }
                         }

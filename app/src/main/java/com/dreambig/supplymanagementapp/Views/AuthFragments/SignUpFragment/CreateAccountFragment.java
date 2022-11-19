@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.Fragment;
@@ -11,11 +12,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.dreambig.supplymanagementapp.Models.CheckAccountModel;
+import com.dreambig.supplymanagementapp.Models.AuthResponseModel;
 import com.dreambig.supplymanagementapp.R;
 import com.dreambig.supplymanagementapp.databinding.FragmentCreateAccountBinding;
 
@@ -28,7 +30,7 @@ public class CreateAccountFragment extends Fragment {
 
     private FragmentCreateAccountBinding binding;
     private CreateAccountViewModel mViewModel;
-    private Observer<CheckAccountModel> oCheckAccount;
+    private AlertDialog alertDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class CreateAccountFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         //View Model
         mViewModel = new ViewModelProvider(CreateAccountFragment.this).get(CreateAccountViewModel.class);
+        mViewModel.init();
 
         //Method to change status bar
         setStatusBar();
@@ -60,6 +63,37 @@ public class CreateAccountFragment extends Fragment {
 
         //sign in click listener
         signInClickListener();
+
+        //Observe email
+        observeEmail();
+
+        //dialog builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder = new AlertDialog.Builder(getContext());
+        builder.setView(R.layout.progress_loading);
+        builder.setCancelable(false);
+        alertDialog = builder.create();
+    }
+
+    private void observeEmail() {
+        mViewModel.getmCheckEmail().observe(getViewLifecycleOwner(), new Observer<AuthResponseModel>() {
+            @Override
+            public void onChanged(AuthResponseModel authResponseModel) {
+                alertDialog.dismiss();
+                if(authResponseModel == null)
+                    return;
+
+                if(!authResponseModel.getExist()){
+                    Bundle userData = new Bundle();
+                    userData.putString("email", binding.etEmail.getText().toString());
+                    userData.putString("password",binding.etPassword.getText().toString());
+                    Navigation.findNavController(binding.getRoot()).navigate(R.id.action_createAccountFragment_to_setUpDetailsFragment, userData);
+                }
+                else{
+                    binding.tilEmail.setError("Email already used");
+                }
+            }
+        });
     }
 
     private void signInClickListener() {
@@ -81,31 +115,12 @@ public class CreateAccountFragment extends Fragment {
     }
 
     private void NavigateToDetails() {
-
         binding.btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(isValidated()){
-                    String email = binding.etEmail.getText().toString();
-                    String password =  binding.etPassword.getText().toString();
-
-                    oCheckAccount = new Observer<CheckAccountModel>() {
-                        @Override
-                        public void onChanged(CheckAccountModel checkAccountModel) {
-                            if(checkAccountModel.getExist()){
-                                binding.tilEmail.setError("Email already used");
-                                return;
-                            }
-
-                            Bundle userData = new Bundle();
-                            userData.putString("email", email);
-                            userData.putString("password",password);
-                            Navigation.findNavController(view).navigate(R.id.action_createAccountFragment_to_setUpDetailsFragment, userData);
-                        }
-                    };
-
-                    mViewModel.getmCheckAccount(email).observe(getViewLifecycleOwner(), oCheckAccount);
-
+                    alertDialog.show();
+                    mViewModel.checkEmail(binding.etEmail.getText().toString());
                 }
             }
         });

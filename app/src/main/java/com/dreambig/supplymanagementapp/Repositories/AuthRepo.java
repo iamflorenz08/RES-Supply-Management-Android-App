@@ -8,12 +8,14 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.dreambig.supplymanagementapp.Models.CheckAccountModel;
+import com.dreambig.supplymanagementapp.Models.AuthResponseModel;
+import com.dreambig.supplymanagementapp.Models.RequestModel;
 import com.dreambig.supplymanagementapp.Models.SignInModel;
 import com.dreambig.supplymanagementapp.Models.UserModel;
 import com.dreambig.supplymanagementapp.Networks.AuthService;
-
-import java.io.IOException;
+import com.dreambig.supplymanagementapp.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,6 +26,12 @@ public class AuthRepo {
     private AuthService authService;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+    private Application application;
+    private MutableLiveData<Boolean> isSignedIn;
+    private MutableLiveData<AuthResponseModel> mCheckGoogleAccount;
+    private MutableLiveData<AuthResponseModel> mCheckEmail;
+    private MutableLiveData<AuthResponseModel> mSignUpGmail;
+    private MutableLiveData<UserModel> authenticatedUser;
 
     public static AuthRepo getInstance(AuthService auth, Application application){
         if(instance == null){
@@ -34,26 +42,129 @@ public class AuthRepo {
 
     private AuthRepo(AuthService authService, Application application){
         this.authService = authService;
+        this.application = application;
         sharedPreferences = application.getSharedPreferences("my_pref", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        isSignedIn = new MutableLiveData<>();
+        mCheckGoogleAccount = new MutableLiveData<>();
+        mCheckEmail = new MutableLiveData<>();
+        mSignUpGmail = new MutableLiveData<>();
+        authenticatedUser = new MutableLiveData<>();
     }
 
-    public MutableLiveData<CheckAccountModel> checkEmailExistence(String email){
-        final MutableLiveData<CheckAccountModel> result = new MutableLiveData<>();
-        authService.checkAccount(email).enqueue(new Callback<CheckAccountModel>() {
+    public void checkGoogleAccount(String email){
+        authService.checkAccount(email).enqueue(new Callback<AuthResponseModel>() {
             @Override
-            public void onResponse(Call<CheckAccountModel> call, Response<CheckAccountModel> response) {
+            public void onResponse(Call<AuthResponseModel> call, Response<AuthResponseModel> response) {
                 if(response.isSuccessful()){
-                    result.setValue(response.body());
+                    mCheckGoogleAccount.postValue(response.body());
+                }
+                else{
+                    mCheckGoogleAccount.postValue(null);
                 }
             }
             @Override
-            public void onFailure(Call<CheckAccountModel> call, Throwable t) {
-                Log.e("MY_DEV", "getProdList onFailure" + call.toString());
+            public void onFailure(Call<AuthResponseModel> call, Throwable t) {
+                mCheckGoogleAccount.postValue(null);
             }
         });
-        return result;
     }
+
+    public void checkSignUpGoogle(String email){
+        authService.checkAccount(email).enqueue(new Callback<AuthResponseModel>() {
+            @Override
+            public void onResponse(Call<AuthResponseModel> call, Response<AuthResponseModel> response) {
+                if(response.isSuccessful()){
+                    GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(application.getApplicationContext());
+                    saveToken(account.getIdToken());
+                    mSignUpGmail.postValue(response.body());
+                }
+                else {
+                    mSignUpGmail.postValue(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthResponseModel> call, Throwable t) {
+                mSignUpGmail.postValue(null);
+            }
+        });
+    }
+
+    public void checkEmail(String email){
+        authService.checkAccount(email).enqueue(new Callback<AuthResponseModel>() {
+            @Override
+            public void onResponse(Call<AuthResponseModel> call, Response<AuthResponseModel> response) {
+                if(response.isSuccessful()){
+                    mCheckEmail.postValue(response.body());
+                }
+                else{
+                    mCheckEmail.postValue(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthResponseModel> call, Throwable t) {
+                mCheckEmail.postValue(null);
+            }
+        });
+    }
+
+
+    public void checkAutoSignIn(){
+        if(getToken().trim().isEmpty() || getToken() == null)
+            isSignedIn.setValue(false);
+        else
+            isSignedIn.setValue(true);
+    }
+
+    public void loadUserInfo(){
+        String header = "Bearer " + getToken();
+        authService.getUserInfo(header).enqueue(new Callback<UserModel>() {
+            @Override
+            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                if(response.isSuccessful())
+                    authenticatedUser.postValue(response.body());
+                else
+                    authenticatedUser.postValue(null);
+            }
+
+            @Override
+            public void onFailure(Call<UserModel> call, Throwable t) {
+                authenticatedUser.postValue(null);
+            }
+        });
+    }
+
+//    public void loadUserInfo(){
+//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(application.getApplicationContext());
+//
+//        String header = "Bearer ";
+//        Boolean isGmail;
+//        if(!getToken().isEmpty()) {
+//            header += getToken();
+//            isGmail = false;
+//        }
+//        else{
+//            header += account.getIdToken();
+//            isGmail = true;
+//        }
+//
+//        authService.getUserInfo(header, new RequestModel(isGmail)).enqueue(new Callback<UserModel>() {
+//            @Override
+//            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+//                if(response.isSuccessful())
+//                    authenticatedUser.postValue(response.body());
+//                else
+//                    authenticatedUser.postValue(null);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<UserModel> call, Throwable t) {
+//                authenticatedUser.postValue(null);
+//            }
+//        });
+//    }
 
     public MutableLiveData<Boolean> insertUser(UserModel user){
         MutableLiveData<Boolean> result = new MutableLiveData<>();
@@ -61,7 +172,12 @@ public class AuthRepo {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if(response.isSuccessful()){
-                    saveToken(response.body());
+                    GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(application.getApplicationContext());
+                    if(account != null)
+                        saveToken(account.getIdToken());
+                    else
+                        saveToken(response.body());
+
                     result.setValue(true);
                     return;
                 }
@@ -73,7 +189,6 @@ public class AuthRepo {
                 result.setValue(false);
             }
         });
-
         return result;
     }
 
@@ -97,6 +212,8 @@ public class AuthRepo {
         return result;
     }
 
+
+
     public void saveToken(String token){
         editor.putString("TOKEN", token);
         editor.commit();
@@ -108,8 +225,30 @@ public class AuthRepo {
     }
 
     public void removeToken(){
+        authenticatedUser.setValue(null);
         editor.putString("TOKEN", null);
+        editor.commit();
     }
 
+    public LiveData<Boolean> getIsSignedIn() {
+        return isSignedIn;
+    }
 
+    public LiveData<AuthResponseModel> getmCheckGoogleAccount() {
+        return mCheckGoogleAccount;
+    }
+
+    public LiveData<AuthResponseModel> getmCheckEmail() {
+        mCheckEmail.setValue(null);
+        return mCheckEmail;
+    }
+
+    public LiveData<AuthResponseModel> getmSignUpGmail() {
+        mSignUpGmail.setValue(null);
+        return mSignUpGmail;
+    }
+
+    public LiveData<UserModel> getAuthenticatedUser() {
+        return authenticatedUser;
+    }
 }

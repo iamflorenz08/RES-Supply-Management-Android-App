@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.Fragment;
@@ -30,6 +31,7 @@ public class SignInFragment extends Fragment {
 
     private FragmentSignInBinding binding;
     private SignInViewModel mViewModel;
+    private AlertDialog alertDialog;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,13 @@ public class SignInFragment extends Fragment {
         //on back listener
         backListener();
 
+        //dialog builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder = new AlertDialog.Builder(getContext());
+        builder.setView(R.layout.progress_loading);
+        builder.setCancelable(false);
+        alertDialog = builder.create();
+
     }
 
     private void backListener() {
@@ -77,11 +86,12 @@ public class SignInFragment extends Fragment {
                     String email = binding.etEmail.getText().toString();
                     String password = binding.etPassword.getText().toString();
 
-                    binding.btnSignIn.setEnabled(false);
+                    alertDialog.show();
                     mViewModel.getIsLoginSuccess(new SignInModel(email,password)).observe(getViewLifecycleOwner(), new Observer<Boolean>() {
                         @Override
                         public void onChanged(Boolean isSuccess) {
                             binding.btnSignIn.setEnabled(true);
+                            alertDialog.dismiss();
                             if(isSuccess){
                                 Navigation.findNavController(view).setGraph(R.navigation.main_navigation);
                             }
