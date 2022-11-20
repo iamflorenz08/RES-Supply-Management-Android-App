@@ -108,8 +108,7 @@ public class CreateAccountFragment extends Fragment {
     private void backClickListener() {
         binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).popBackStack();
+            public void onClick(View view) {Navigation.findNavController(view).popBackStack();
             }
         });
     }

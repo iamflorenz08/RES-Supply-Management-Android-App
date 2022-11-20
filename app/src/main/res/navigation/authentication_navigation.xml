@@ -41,12 +41,20 @@
         android:id="@+id/signInFragment"
         android:name="com.dreambig.supplymanagementapp.Views.AuthFragments.SignInFragment.SignInFragment"
         android:label="fragment_sign_in"
-        tools:layout="@layout/fragment_sign_in" />
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signInFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
+    </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
         android:name="com.dreambig.supplymanagementapp.Views.AuthFragments.SignInFragment.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
-        tools:layout="@layout/fragment_forgot_password" />
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_createNewPasswordFragment"
+            app:destination="@id/createNewPasswordFragment" />
+    </fragment>
     <fragment
         android:id="@+id/createNewPasswordFragment"
         android:name="com.dreambig.supplymanagementapp.Views.AuthFragments.SignInFragment.CreateNewPasswordFragment"

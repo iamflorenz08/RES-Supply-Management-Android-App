@@ -91,7 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
         android:text="Forgot your password?"
-        android:textColor="@color/hintColor"
+        android:textColor="#0064FE"
         android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="@+id/tilPassword"
         app:layout_constraintTop_toBottomOf="@+id/tilPassword" />
