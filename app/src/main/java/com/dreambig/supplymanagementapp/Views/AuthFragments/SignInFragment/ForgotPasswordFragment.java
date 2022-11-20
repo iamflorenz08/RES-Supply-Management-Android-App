@@ -31,15 +31,7 @@ import org.jetbrains.annotations.NotNull;
 public class ForgotPasswordFragment extends Fragment {
 
     private FragmentForgotPasswordBinding binding;
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        WindowInsetsControllerCompat windowInsetsController =
-                WindowCompat.getInsetsController(getActivity().getWindow(), getActivity().getWindow().getDecorView());
-        windowInsetsController.setAppearanceLightStatusBars(false);
-        getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.primary));
-    }
-
+   
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,11 +44,20 @@ public class ForgotPasswordFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        setStatusBar();
+        
         backListener();
 
         submitListener();
     }
-
+    
+    private void setStatusBar(){
+        WindowInsetsControllerCompat windowInsetsController =
+                WindowCompat.getInsetsController(getActivity().getWindow(), getActivity().getWindow().getDecorView());
+        windowInsetsController.setAppearanceLightStatusBars(false);
+        getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.primary));
+    }
+    
     private void backListener () {
         binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
