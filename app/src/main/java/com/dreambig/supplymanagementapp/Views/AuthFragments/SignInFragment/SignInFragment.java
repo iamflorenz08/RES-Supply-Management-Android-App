@@ -1,5 +1,6 @@
 package com.dreambig.supplymanagementapp.Views.AuthFragments.SignInFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.dreambig.supplymanagementapp.Models.SignInModel;
 import com.dreambig.supplymanagementapp.R;
+import com.dreambig.supplymanagementapp.databinding.FragmentForgotPasswordBinding;
 import com.dreambig.supplymanagementapp.databinding.FragmentSignInBinding;
 
 import java.util.regex.Pattern;
@@ -44,6 +46,7 @@ public class SignInFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentSignInBinding.inflate(inflater, container, false);
         return binding.getRoot();
+
     }
 
     @Override
@@ -60,6 +63,9 @@ public class SignInFragment extends Fragment {
         //on back listener
         backListener();
 
+        //Forgot Password Listener
+        forgotPasswordListener();
+
         //dialog builder
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder = new AlertDialog.Builder(getContext());
@@ -72,8 +78,7 @@ public class SignInFragment extends Fragment {
     private void backListener() {
         binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).popBackStack();
+            public void onClick(View view) {Navigation.findNavController(view).popBackStack();
             }
         });
     }
@@ -145,6 +150,15 @@ public class SignInFragment extends Fragment {
         if (email == null)
             return false;
         return pat.matcher(email).matches();
+    }
+
+    private void forgotPasswordListener() {
+        binding.btnForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_signInFragment_to_forgotPasswordFragment);
+            }
+        });
     }
 
 }
