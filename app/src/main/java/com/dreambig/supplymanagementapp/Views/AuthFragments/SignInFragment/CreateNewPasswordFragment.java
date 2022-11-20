@@ -19,14 +19,6 @@ import com.dreambig.supplymanagementapp.databinding.FragmentCreateNewPasswordBin
 public class CreateNewPasswordFragment extends Fragment {
 
     private FragmentCreateNewPasswordBinding binding;
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        WindowInsetsControllerCompat windowInsetsController =
-                WindowCompat.getInsetsController(getActivity().getWindow(), getActivity().getWindow().getDecorView());
-        windowInsetsController.setAppearanceLightStatusBars(false);
-        getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.primary));
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,5 +31,15 @@ public class CreateNewPasswordFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //set status  bar
+        setStatusBar();
+    }
+
+    private void setStatusBar() {
+        WindowInsetsControllerCompat windowInsetsController =
+                WindowCompat.getInsetsController(getActivity().getWindow(), getActivity().getWindow().getDecorView());
+        windowInsetsController.setAppearanceLightStatusBars(false);
+        getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.primary));
     }
 }

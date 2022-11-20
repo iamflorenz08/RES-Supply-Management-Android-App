@@ -50,6 +50,41 @@ public class AccountSettingsFragment extends Fragment {
         //back
         backListener();
 
+        binding.btnName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_accountSettingsFragment_to_changeNameFragment);
+            }
+        });
+
+        binding.btnPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_accountSettingsFragment_to_changeMobileFragment);
+            }
+        });
+
+        binding.btnEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_accountSettingsFragment_to_changeEmailFragment);
+            }
+        });
+
+        binding.btnDepartmentPosition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_accountSettingsFragment_to_changeDepPosFragment);
+            }
+        });
+
+        binding.btnChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_accountSettingsFragment_to_changePasswordFragment);
+            }
+        });
+
     }
 
     private void init() {

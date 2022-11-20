@@ -216,7 +216,7 @@ public class SetUpDetailsFragment extends Fragment {
 
     private void populateDepartment() {
         String[] departmentLists = {"Select", "English", "Mathematics", "Filipino", "Others"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.drop_down_item, departmentLists);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.drop_down_item, departmentLists);
         binding.atvDepartment.setAdapter(adapter);
         binding.atvDepartment.setText(adapter.getItem(0),false);
     }

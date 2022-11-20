@@ -1,6 +1,7 @@
 package com.dreambig.supplymanagementapp.Adapters;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,7 @@ import java.util.List;
 
 public class SupplyCardAdapter extends RecyclerView.Adapter<SupplyCardAdapter.ViewHolder> {
     private List<SupplyModel> items = new ArrayList<>();
+    private ItemListener itemListener;
 
     @NonNull
     @Override
@@ -34,6 +36,13 @@ public class SupplyCardAdapter extends RecyclerView.Adapter<SupplyCardAdapter.Vi
                 .transform(new FitCenter(), new RoundedCorners(20))
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .into(holder.binding.ivSupply);
+
+        holder.binding.cvItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                itemListener.itemOnClick(items.get(position));
+            }
+        });
     }
 
     @Override
@@ -46,6 +55,10 @@ public class SupplyCardAdapter extends RecyclerView.Adapter<SupplyCardAdapter.Vi
         notifyDataSetChanged();
     }
 
+    public void setItemListener(ItemListener itemListener) {
+        this.itemListener = itemListener;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder{
         private ItemCardViewBinding binding;
 
@@ -56,5 +69,8 @@ public class SupplyCardAdapter extends RecyclerView.Adapter<SupplyCardAdapter.Vi
 
     }
 
+    public interface ItemListener{
+        void itemOnClick(SupplyModel supplyItem);
+    }
 
 }

@@ -44,10 +44,71 @@
         android:id="@+id/accountSettingsFragment"
         android:name="com.dreambig.supplymanagementapp.Views.SettingsFragment.AccountSettingsFragment.AccountSettingsFragment"
         android:label="fragment_account_settings"
-        tools:layout="@layout/fragment_account_settings" />
+        tools:layout="@layout/fragment_account_settings" >
+        <action
+            android:id="@+id/action_accountSettingsFragment_to_changeNameFragment"
+            app:destination="@id/changeNameFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/pop_enter_anim"
+            app:popExitAnim="@anim/pop_exit_anim" />
+        <action
+            android:id="@+id/action_accountSettingsFragment_to_changeMobileFragment"
+            app:destination="@id/changeMobileFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/pop_enter_anim"
+            app:popExitAnim="@anim/pop_exit_anim" />
+        <action
+            android:id="@+id/action_accountSettingsFragment_to_changeEmailFragment"
+            app:destination="@id/changeEmailFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/pop_enter_anim"
+            app:popExitAnim="@anim/pop_exit_anim" />
+        <action
+            android:id="@+id/action_accountSettingsFragment_to_changeDepPosFragment"
+            app:destination="@id/changeDepPosFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/pop_enter_anim"
+            app:popExitAnim="@anim/pop_exit_anim" />
+        <action
+            android:id="@+id/action_accountSettingsFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/pop_enter_anim"
+            app:popExitAnim="@anim/pop_exit_anim" />
+    </fragment>
     <fragment
         android:id="@+id/notificationSettingsFragment"
         android:name="com.dreambig.supplymanagementapp.Views.SettingsFragment.NotificationSettingsFragment.NotificationSettingsFragment"
         android:label="fragment_notification_settings"
         tools:layout="@layout/fragment_notification_settings" />
+    <fragment
+        android:id="@+id/changeNameFragment"
+        android:name="com.dreambig.supplymanagementapp.Views.SettingsFragment.AccountSettingsFragment.ChangeNameFragment.ChangeNameFragment"
+        android:label="fragment_change_name"
+        tools:layout="@layout/fragment_change_name" />
+    <fragment
+        android:id="@+id/changeMobileFragment"
+        android:name="com.dreambig.supplymanagementapp.Views.SettingsFragment.AccountSettingsFragment.ChangeMobileFragment.ChangeMobileFragment"
+        android:label="fragment_change_mobile"
+        tools:layout="@layout/fragment_change_mobile" />
+    <fragment
+        android:id="@+id/changeEmailFragment"
+        android:name="com.dreambig.supplymanagementapp.Views.SettingsFragment.AccountSettingsFragment.ChangeEmailFragment.ChangeEmailFragment"
+        android:label="fragment_change_email"
+        tools:layout="@layout/fragment_change_email" />
+    <fragment
+        android:id="@+id/changeDepPosFragment"
+        android:name="com.dreambig.supplymanagementapp.Views.SettingsFragment.AccountSettingsFragment.ChangeDepPosFragment.ChangeDepPosFragment"
+        android:label="fragment_change_dep_pos"
+        tools:layout="@layout/fragment_change_dep_pos" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.dreambig.supplymanagementapp.Views.SettingsFragment.AccountSettingsFragment.ChangePassword.ChangePasswordFragment"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" />
 </navigation>

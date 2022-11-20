@@ -25,11 +25,18 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.FitCenter;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.dreambig.supplymanagementapp.Adapters.SupplyCardAdapter;
 import com.dreambig.supplymanagementapp.Adapters.SupplyListAdapter;
 import com.dreambig.supplymanagementapp.Models.SupplyModel;
 import com.dreambig.supplymanagementapp.R;
 import com.dreambig.supplymanagementapp.databinding.FragmentStockBinding;
+import com.dreambig.supplymanagementapp.databinding.StockDetailsBinding;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +50,9 @@ public class StockFragment extends Fragment {
     private FragmentStockBinding binding;
     private SupplyListAdapter supplyListAdapter;
     private SupplyCardAdapter supplyCardAdapter;
+    private StockDetailsBinding detailsBinding;
+    private BottomSheetDialog bottomSheetDialog;
+    private BottomSheetBehavior bottomSheetBehavior;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -56,7 +66,12 @@ public class StockFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(StockViewModel.class);
 
-        Log.d("MY_DEV", "ON VIEW CREATED");
+        //view binding for bottom sheet
+        detailsBinding = StockDetailsBinding.inflate(LayoutInflater.from(getContext()));
+        bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog_custom);
+        bottomSheetDialog.setContentView(detailsBinding.getRoot());
+        bottomSheetBehavior = bottomSheetDialog.getBehavior();
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
         //Init details
         init();
@@ -66,7 +81,7 @@ public class StockFragment extends Fragment {
         setStatusBar();
 
         //Hide keyboard after search
-        hideKeyboard();
+        setOnEditorActionListener();
 
         //Live data observers
         suppliesObserver();
@@ -76,6 +91,43 @@ public class StockFragment extends Fragment {
         stockView();
 
 
+
+        supplyCardAdapter.setItemListener(new SupplyCardAdapter.ItemListener() {
+            @Override
+            public void itemOnClick(SupplyModel supplyItem) {
+                setBottomSheetDetails(supplyItem);
+            }
+        });
+
+        supplyListAdapter.setItemListener(new SupplyListAdapter.ItemListener() {
+            @Override
+            public void itemOnClick(SupplyModel supplyItem) {
+                setBottomSheetDetails(supplyItem);
+            }
+        });
+
+    }
+
+    private void setBottomSheetDetails(SupplyModel supplyItem){
+        Glide.with(detailsBinding.getRoot())
+                .load(supplyItem.getItem_image())
+                .transform(new FitCenter(), new RoundedCorners(15))
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .into(detailsBinding.ivStockImage);
+
+
+        detailsBinding.tvProductName.setText(supplyItem.getItem_name());
+        if(supplyItem.getReturnable()) detailsBinding.tvConsumable.setText("Non-Consumable");
+        else detailsBinding.tvConsumable.setText("Consumable");
+        detailsBinding.tvAvailability.setText("Availability: " + supplyItem.getAvailable());
+        detailsBinding.tvDescription.setText(supplyItem.getItem_desc());
+        detailsBinding.etNote.setText(null);
+        detailsBinding.etNote.clearFocus();
+        detailsBinding.etQuantity.setText(null);
+        detailsBinding.etQuantity.clearFocus();
+
+        hideKeyboard();
+        bottomSheetDialog.show();
     }
 
     private void searchListener() {
@@ -105,7 +157,6 @@ public class StockFragment extends Fragment {
                     return;
                 supplyListAdapter.setItems(searchItems);
                 supplyCardAdapter.setItems(searchItems);
-
             }
         });
     }
@@ -173,12 +224,16 @@ public class StockFragment extends Fragment {
     }
 
     private void hideKeyboard(){
+        binding.etSearch.clearFocus();
+        InputMethodManager in = (InputMethodManager)getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
+        in.hideSoftInputFromWindow(binding.etSearch.getWindowToken(), 0);
+    }
+
+    private void setOnEditorActionListener(){
         binding.etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                binding.etSearch.clearFocus();
-                InputMethodManager in = (InputMethodManager)getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
-                in.hideSoftInputFromWindow(binding.etSearch.getWindowToken(), 0);
+                hideKeyboard();
                 return false;
             }
         });
