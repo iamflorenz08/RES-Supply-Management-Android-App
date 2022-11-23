@@ -47,6 +47,9 @@ public class ChangeNameFragment extends Fragment {
 
         //back click listener
         backListener();
+
+        submitListener();
+
     }
 
     private void userLiveData() {
@@ -67,5 +70,37 @@ public class ChangeNameFragment extends Fragment {
                 Navigation.findNavController(view).popBackStack();
             }
         });
+    }
+
+    private void submitListener(){
+        binding.btnChangeName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isValidated()){
+
+                }
+            }
+        });
+    }
+
+    private boolean isValidated(){
+        boolean isValid = true;
+        binding.etFirstName.setError(null);
+        binding.etMiddleName.setError(null);
+        binding.etLastName.setError(null);
+
+        if (binding.etFirstName.getText().toString().isEmpty()){
+            binding.etFirstName.setError("First name cannot be empty");
+            isValid = false;
+        }
+        if (binding.etMiddleName.getText().toString().isEmpty()){
+            binding.etMiddleName.setError("Middle name cannot be empty");
+            isValid = false;
+        }
+        if(binding.etLastName.getText().toString().length()!=11){
+            binding.etLastName.setError("Last name cannot be empty");
+            isValid = false;
+        }
+        return isValid;
     }
 }
