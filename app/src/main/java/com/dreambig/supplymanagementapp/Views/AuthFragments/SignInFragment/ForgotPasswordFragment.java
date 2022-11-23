@@ -9,29 +9,19 @@ import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.renderscript.ScriptGroup;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.dreambig.supplymanagementapp.MainActivity;
+
 import com.dreambig.supplymanagementapp.R;
 import com.dreambig.supplymanagementapp.databinding.FragmentForgotPasswordBinding;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthWebException;
-
-import org.jetbrains.annotations.NotNull;
 
 public class ForgotPasswordFragment extends Fragment {
 
     private FragmentForgotPasswordBinding binding;
-   
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,19 +35,21 @@ public class ForgotPasswordFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         setStatusBar();
-        
+
         backListener();
 
         submitListener();
+
+        isValidated();
     }
-    
+
     private void setStatusBar(){
         WindowInsetsControllerCompat windowInsetsController =
                 WindowCompat.getInsetsController(getActivity().getWindow(), getActivity().getWindow().getDecorView());
         windowInsetsController.setAppearanceLightStatusBars(false);
         getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.primary));
     }
-    
+
     private void backListener () {
         binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,20 +63,29 @@ public class ForgotPasswordFragment extends Fragment {
         binding.btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                resetPassword();
+                if(isValidated()){
+
+                }
             }
         });
     }
 
-    private  void resetPassword(){
+    private boolean isValidated(){
+
+        boolean isValid = true;
+        binding.etEmail.setError(null);
         String email = binding.etEmail.getText().toString().trim();
+
         if (email.isEmpty()){
             binding.etEmail.setError("Please enter your email");
-            return;
+            binding.etEmail.requestFocus();
+            isValid = false;
         }
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             binding.etEmail.setError("Please enter a valid email");
-            return;
+            binding.etEmail.requestFocus();
+            isValid = false;
         }
+        return isValid;
     }
 }
