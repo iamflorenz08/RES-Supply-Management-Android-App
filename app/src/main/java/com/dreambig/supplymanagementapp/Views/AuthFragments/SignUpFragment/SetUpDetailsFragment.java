@@ -188,7 +188,7 @@ public class SetUpDetailsFragment extends Fragment {
         }
 
         if (binding.atvDepartment.getText().toString().equals("Select")){
-            binding.tilDepartment.setError("Select your department");
+            binding.tilDepartment.setError("Please select your department");
             isValid = false;
         }
 
