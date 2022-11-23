@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.dreambig.supplymanagementapp.Views.AuthFragments.SignUpFragment.SignUpFragment"
+        android:name="com.dreambig.supplymanagementapp.Views.BorrowFragments.SignUpFragment.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" >
         <action
@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/createAccountFragment"
-        android:name="com.dreambig.supplymanagementapp.Views.AuthFragments.SignUpFragment.CreateAccountFragment"
+        android:name="com.dreambig.supplymanagementapp.Views.BorrowFragments.SignUpFragment.CreateAccountFragment"
         android:label="fragment_create_account"
         tools:layout="@layout/fragment_create_account" >
         <action
@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/setUpDetailsFragment"
-        android:name="com.dreambig.supplymanagementapp.Views.AuthFragments.SignUpFragment.SetUpDetailsFragment"
+        android:name="com.dreambig.supplymanagementapp.Views.BorrowFragments.SignUpFragment.SetUpDetailsFragment"
         android:label="fragment_set_up_details"
         tools:layout="@layout/fragment_set_up_details" />
     <fragment
