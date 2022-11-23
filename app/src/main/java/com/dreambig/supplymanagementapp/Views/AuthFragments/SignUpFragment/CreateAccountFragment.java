@@ -1,4 +1,4 @@
-package com.dreambig.supplymanagementapp.Views.BorrowFragments.SignUpFragment;
+package com.dreambig.supplymanagementapp.Views.AuthFragments.SignUpFragment;
 
 import android.os.Bundle;
 
@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -130,7 +131,7 @@ public class CreateAccountFragment extends Fragment {
         binding.tilPassword.setError(null);
 
         if(binding.etEmail.getText().toString().trim().isEmpty()) {
-            binding.tilEmail.setError("Please enter your email");
+            binding.tilEmail.setError("Input your email");
             isValid =  false;
         }
         else if (!isEmailFormatValid(binding.etEmail.getText().toString())){

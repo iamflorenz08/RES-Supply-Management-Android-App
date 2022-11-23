@@ -48,14 +48,6 @@ public class ChangeDepPosFragment extends Fragment {
 
         //populate department
         populateDepartment();
-
-        //submit to change DepPos
-        submitListener();
-
-        //
-        isValidated();
-
-
     }
 
     private void userLiveData() {
@@ -69,8 +61,7 @@ public class ChangeDepPosFragment extends Fragment {
     }
 
     private void populateDepartment() {
-        String[] departmentLists = {"Select", "Kindergarten", "Grade 1", "Grade 2",
-                "Grade3", "Grade 4", "Grade 5", "Grade 6"};
+        String[] departmentLists = {"English", "Mathematics", "Filipino", "Others"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.drop_down_item, departmentLists);
         binding.atvDepartment.setAdapter(adapter);
     }
@@ -82,33 +73,5 @@ public class ChangeDepPosFragment extends Fragment {
                 Navigation.findNavController(view).popBackStack();
             }
         });
-    }
-
-    private void submitListener(){
-        binding.btnChangeDepPos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(isValidated()){
-
-                }
-            }
-        });
-    }
-
-    private boolean isValidated(){
-
-        boolean isValid = true;
-        binding.atvDepartment.setError(null);
-        binding.etPosition.setError(null);
-
-        if(binding.atvDepartment.getText().toString().equals("Select")){
-            binding.atvDepartment.setError("Please select your department");
-            isValid = false;
-        }
-        if(binding.etPosition.getText().toString().trim().isEmpty()){
-            binding.etPosition.setError("Please enter your position");
-            isValid = false;
-        }
-        return isValid;
     }
 }
