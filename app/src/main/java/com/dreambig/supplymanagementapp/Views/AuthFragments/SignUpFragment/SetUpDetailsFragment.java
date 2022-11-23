@@ -169,17 +169,17 @@ public class SetUpDetailsFragment extends Fragment {
         binding.tilPosition.setError(null);
 
         if (binding.etFirstName.getText().toString().trim().isEmpty()){
-            binding.tilFirstName.setError("Input your first name");
+            binding.tilFirstName.setError("First name cannot be empty");
             isValid = false;
         }
 
         if (binding.etLastName.getText().toString().trim().isEmpty()){
-            binding.tilLastName.setError("Input your last name");
+            binding.tilLastName.setError("Last name cannot be empty");
             isValid = false;
         }
 
         if (binding.etMobileNumber.getText().toString().trim().isEmpty()){
-            binding.tilMobileNumber.setError("Input your number");
+            binding.tilMobileNumber.setError("Please enter your number");
             isValid = false;
         }
         else if(binding.etMobileNumber.getText().toString().length() != 11){
@@ -193,7 +193,7 @@ public class SetUpDetailsFragment extends Fragment {
         }
 
         if (binding.etPosition.getText().toString().trim().isEmpty()){
-            binding.tilPosition.setError("Input your position");
+            binding.tilPosition.setError("Please enter your position");
             isValid = false;
         }
 
@@ -215,7 +215,8 @@ public class SetUpDetailsFragment extends Fragment {
     }
 
     private void populateDepartment() {
-        String[] departmentLists = {"Select", "English", "Mathematics", "Filipino", "Others"};
+        String[] departmentLists = {"Select", "Kindergarten", "Grade 1", "Grade 2",
+                "Grade3", "Grade 4", "Grade 5", "Grade 6"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.drop_down_item, departmentLists);
         binding.atvDepartment.setAdapter(adapter);
         binding.atvDepartment.setText(adapter.getItem(0),false);
