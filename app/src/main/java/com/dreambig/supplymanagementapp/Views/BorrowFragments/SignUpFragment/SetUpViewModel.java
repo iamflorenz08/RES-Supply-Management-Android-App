@@ -1,4 +1,4 @@
-package com.dreambig.supplymanagementapp.Views.AuthFragments.SignUpFragment;
+package com.dreambig.supplymanagementapp.Views.BorrowFragments.SignUpFragment;
 
 import android.view.View;
 
