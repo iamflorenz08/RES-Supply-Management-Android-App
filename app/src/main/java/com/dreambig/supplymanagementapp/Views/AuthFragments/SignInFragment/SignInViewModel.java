@@ -24,4 +24,8 @@ public class SignInViewModel extends ViewModel {
         isLoginSuccess = authRepo.signIn(credentials);
         return isLoginSuccess;
     }
+
+    public void sendEmail(String email) {
+        authRepo.sendEmail(email);
+    }
 }

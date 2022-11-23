@@ -2,6 +2,7 @@ package com.dreambig.supplymanagementapp.Networks;
 
 import com.dreambig.supplymanagementapp.Models.AuthResponseModel;
 import com.dreambig.supplymanagementapp.Models.RequestModel;
+import com.dreambig.supplymanagementapp.Models.ResponseModel;
 import com.dreambig.supplymanagementapp.Models.SignInModel;
 import com.dreambig.supplymanagementapp.Models.UserModel;
 
@@ -23,6 +24,11 @@ public interface AuthService {
     @POST("/auth/signin")
     Call<String> signIn(@Body SignInModel credentials);
 
+    @POST("/auth/recover")
+    Call<ResponseModel> sendEmail(@Body UserModel userModel);
+
     @POST("/user")
     Call<UserModel> getUserInfo(@Header("Authorization")String authHeader);
+
+
 }

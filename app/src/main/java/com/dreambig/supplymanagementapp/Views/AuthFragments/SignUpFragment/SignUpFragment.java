@@ -21,6 +21,10 @@ import com.dreambig.supplymanagementapp.MainActivity;
 import com.dreambig.supplymanagementapp.Models.AuthResponseModel;
 import com.dreambig.supplymanagementapp.R;
 import com.dreambig.supplymanagementapp.databinding.FragmentSignUpBinding;
+
+import com.dreambig.supplymanagementapp.databinding.ProgressLoadingBinding;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import dagger.hilt.android.AndroidEntryPoint;
