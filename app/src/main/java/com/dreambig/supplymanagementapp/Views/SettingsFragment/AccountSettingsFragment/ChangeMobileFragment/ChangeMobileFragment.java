@@ -40,13 +40,13 @@ public class ChangeMobileFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(AccountSettingsViewModel.class);
         mViewModel.init();
 
+
         //observes user data
         userLiveData();
 
+
         // back click listener
         backListener();
-
-        submitListener();
     }
 
     private void userLiveData() {
@@ -66,36 +66,5 @@ public class ChangeMobileFragment extends Fragment {
                 Navigation.findNavController(view).popBackStack();
             }
         });
-    }
-
-    private void submitListener(){
-        binding.btnChangeMobile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(isValidated()){
-
-                }
-            }
-        });
-    }
-
-    private boolean isValidated(){
-        boolean isValid = true;
-        binding.etCurrentPassword.setError(null);
-        binding.etNewMobile.setError(null);
-
-        if (binding.etCurrentPassword.getText().toString().isEmpty()){
-            binding.etCurrentPassword.setError("Please enter your password");
-            isValid = false;
-        }
-        if (binding.etNewMobile.getText().toString().isEmpty()){
-            binding.etNewMobile.setError("Please enter your number");
-            isValid = false;
-        }
-        else if(binding.etNewMobile.getText().toString().length()!=11){
-            binding.etNewMobile.setError("Invalid number");
-            isValid = false;
-        }
-        return isValid;
     }
 }
