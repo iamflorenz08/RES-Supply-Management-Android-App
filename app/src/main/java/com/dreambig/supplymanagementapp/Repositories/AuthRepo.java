@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.dreambig.supplymanagementapp.Models.AuthResponseModel;
 import com.dreambig.supplymanagementapp.Models.RequestModel;
+import com.dreambig.supplymanagementapp.Models.ResponseModel;
 import com.dreambig.supplymanagementapp.Models.SignInModel;
 import com.dreambig.supplymanagementapp.Models.UserModel;
 import com.dreambig.supplymanagementapp.Networks.AuthService;
@@ -136,35 +137,6 @@ public class AuthRepo {
         });
     }
 
-//    public void loadUserInfo(){
-//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(application.getApplicationContext());
-//
-//        String header = "Bearer ";
-//        Boolean isGmail;
-//        if(!getToken().isEmpty()) {
-//            header += getToken();
-//            isGmail = false;
-//        }
-//        else{
-//            header += account.getIdToken();
-//            isGmail = true;
-//        }
-//
-//        authService.getUserInfo(header, new RequestModel(isGmail)).enqueue(new Callback<UserModel>() {
-//            @Override
-//            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-//                if(response.isSuccessful())
-//                    authenticatedUser.postValue(response.body());
-//                else
-//                    authenticatedUser.postValue(null);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<UserModel> call, Throwable t) {
-//                authenticatedUser.postValue(null);
-//            }
-//        });
-//    }
 
     public MutableLiveData<Boolean> insertUser(UserModel user){
         MutableLiveData<Boolean> result = new MutableLiveData<>();
@@ -250,5 +222,21 @@ public class AuthRepo {
 
     public LiveData<UserModel> getAuthenticatedUser() {
         return authenticatedUser;
+    }
+
+    public void sendEmail(String email) {
+        UserModel userModel = new UserModel();
+        userModel.setEmail(email);
+        authService.sendEmail(userModel).enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+
+            }
+        });
     }
 }

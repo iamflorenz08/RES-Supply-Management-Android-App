@@ -130,7 +130,9 @@ public class CreateAccountFragment extends Fragment {
         binding.tilPassword.setError(null);
 
         if(binding.etEmail.getText().toString().trim().isEmpty()) {
+
             binding.tilEmail.setError("Please enter your email");
+
             isValid =  false;
         }
         else if (!isEmailFormatValid(binding.etEmail.getText().toString())){

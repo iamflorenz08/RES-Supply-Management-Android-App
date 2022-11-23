@@ -13,6 +13,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -28,6 +29,8 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+
+import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -60,8 +63,19 @@ public class MainActivity extends AppCompatActivity {
         init();
         mViewModel.init();
 
-        //Check the previous signed in
-        checkPreviousSignIn();
+        Uri resetPassword = getIntent().getData();
+        if(resetPassword!=null){
+            List<String> params = resetPassword.getPathSegments();
+            String resetToken = params.get(params.size() - 1);
+            Bundle bundle = new Bundle();
+            bundle.putString("resetToken", resetToken);
+            navController.setGraph(R.navigation.authentication_navigation);
+            navController.navigate(R.id.action_signUpFragment_to_createNewPasswordFragment, bundle);
+        }
+        else{
+            //Check the previous signed in
+            checkPreviousSignIn();
+        }
 
         //permissions
         permissions();
@@ -179,6 +193,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
 
 
 
