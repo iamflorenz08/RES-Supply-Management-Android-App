@@ -9,7 +9,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.dreambig.supplymanagementapp.Models.AuthResponseModel;
+import com.dreambig.supplymanagementapp.Models.PasswordModel;
 import com.dreambig.supplymanagementapp.Models.RequestModel;
+import com.dreambig.supplymanagementapp.Models.ResetPasswordModel;
 import com.dreambig.supplymanagementapp.Models.ResponseModel;
 import com.dreambig.supplymanagementapp.Models.SignInModel;
 import com.dreambig.supplymanagementapp.Models.UserModel;
@@ -33,6 +35,7 @@ public class AuthRepo {
     private MutableLiveData<AuthResponseModel> mCheckEmail;
     private MutableLiveData<AuthResponseModel> mSignUpGmail;
     private MutableLiveData<UserModel> authenticatedUser;
+    private MutableLiveData<ResponseModel> responseResetPassword;
 
     public static AuthRepo getInstance(AuthService auth, Application application){
         if(instance == null){
@@ -51,6 +54,7 @@ public class AuthRepo {
         mCheckEmail = new MutableLiveData<>();
         mSignUpGmail = new MutableLiveData<>();
         authenticatedUser = new MutableLiveData<>();
+        responseResetPassword = new MutableLiveData<>();
     }
 
     public void checkGoogleAccount(String email){
@@ -238,5 +242,30 @@ public class AuthRepo {
 
             }
         });
+    }
+
+    public void resetPassword(String token, String newPassword) {
+        ResetPasswordModel resetPass = new ResetPasswordModel();
+        resetPass.setNewPassword(newPassword);
+        authService.resetPassword("Bearer " + token, resetPass).enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                if(response.isSuccessful()){
+                    responseResetPassword.postValue(response.body());
+                    return;
+                }
+                responseResetPassword.postValue(null);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+                responseResetPassword.postValue(null);
+            }
+        });
+    }
+
+    public MutableLiveData<ResponseModel> getResponseResetPassword() {
+        responseResetPassword.setValue(null);
+        return responseResetPassword;
     }
 }

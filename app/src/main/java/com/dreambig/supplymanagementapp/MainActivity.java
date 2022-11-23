@@ -65,20 +65,23 @@ public class MainActivity extends AppCompatActivity {
 
         Uri resetPassword = getIntent().getData();
         if(resetPassword!=null){
-            List<String> params = resetPassword.getPathSegments();
-            String resetToken = params.get(params.size() - 1);
-            Bundle bundle = new Bundle();
-            bundle.putString("resetToken", resetToken);
-            navController.setGraph(R.navigation.authentication_navigation);
-            navController.navigate(R.id.action_signUpFragment_to_createNewPasswordFragment, bundle);
+            resetPassword(resetPassword);
         }
         else{
             //Check the previous signed in
             checkPreviousSignIn();
         }
-
         //permissions
         permissions();
+    }
+
+    private void resetPassword(Uri resetPassword) {
+        List<String> params = resetPassword.getPathSegments();
+        String resetToken = params.get(params.size() - 1);
+        Bundle bundle = new Bundle();
+        bundle.putString("resetToken", resetToken);
+        navController.setGraph(R.navigation.authentication_navigation);
+        navController.navigate(R.id.action_signUpFragment_to_createNewPasswordFragment, bundle);
     }
 
     private void permissions() {
