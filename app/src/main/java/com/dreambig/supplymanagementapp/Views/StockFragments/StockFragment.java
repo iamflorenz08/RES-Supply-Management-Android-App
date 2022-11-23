@@ -90,8 +90,6 @@ public class StockFragment extends Fragment {
         //Change View
         stockView();
 
-
-
         supplyCardAdapter.setItemListener(new SupplyCardAdapter.ItemListener() {
             @Override
             public void itemOnClick(SupplyModel supplyItem) {

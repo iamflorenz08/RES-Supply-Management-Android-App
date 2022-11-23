@@ -1,36 +1,27 @@
 package com.dreambig.supplymanagementapp.Views.AuthFragments.SignInFragment;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-
-import android.renderscript.ScriptGroup;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.dreambig.supplymanagementapp.MainActivity;
 import com.dreambig.supplymanagementapp.R;
 import com.dreambig.supplymanagementapp.databinding.FragmentForgotPasswordBinding;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthWebException;
+import dagger.hilt.android.AndroidEntryPoint;
 
-import org.jetbrains.annotations.NotNull;
-
+@AndroidEntryPoint
 public class ForgotPasswordFragment extends Fragment {
 
     private FragmentForgotPasswordBinding binding;
+    private SignInViewModel mViewModel;
    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +34,7 @@ public class ForgotPasswordFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mViewModel = new ViewModelProvider(this).get(SignInViewModel.class);
 
         setStatusBar();
         
@@ -71,20 +63,28 @@ public class ForgotPasswordFragment extends Fragment {
         binding.btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                resetPassword();
+                if(resetPassword()){
+                    mViewModel.sendEmail(binding.etEmail.getText().toString());
+                    binding.tilEmail.setHelperText("Password recovery sent to your email.");
+                    binding.tilEmail.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.primary)));
+                    binding.btnSubmit.setEnabled(false);
+                };
             }
         });
     }
 
-    private  void resetPassword(){
+    private Boolean resetPassword(){
         String email = binding.etEmail.getText().toString().trim();
+
         if (email.isEmpty()){
-            binding.etEmail.setError("Please enter your email");
-            return;
+            binding.tilEmail.setError("Please enter your email");
+            return false;
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            binding.etEmail.setError("Please enter a valid email");
-            return;
+            binding.tilEmail.setError("Please enter a valid email");
+            return false;
         }
+
+        return true;
     }
 }
