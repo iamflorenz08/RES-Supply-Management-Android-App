@@ -148,17 +148,57 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/tvIdNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:fontFamily="@font/interregular"
-        android:text="Mobile Number"
+        android:text="ID Number"
+        android:layout_marginTop="10dp"
         android:textColor="@color/hintColor"
         android:textSize="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilMiddleName" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilIdNo"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeColor="@color/selector_input_layout"
+        app:hintEnabled="false"
+        app:layout_constraintEnd_toEndOf="@+id/tvIdNo"
+        app:layout_constraintStart_toStartOf="@+id/tvIdNo"
+        app:layout_constraintTop_toBottomOf="@+id/tvIdNo">
+
+        <EditText
+            android:id="@+id/etIdNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ex. K1234566776"
+            android:inputType="textPersonName"
+            android:padding="15dp"
+            android:textSize="15dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/interregular"
+        android:text="Mobile Number"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/hintColor"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilIdNo" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilMobileNumber"
@@ -266,8 +306,8 @@
 
     <Button
         android:id="@+id/btnComplete"
-        android:layout_width="153dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
         android:layout_marginTop="89dp"
         android:fontFamily="@font/intermedium"
         android:insetTop="0dp"
@@ -283,6 +323,7 @@
         android:textSize="15dp"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilPosition" />
 
 

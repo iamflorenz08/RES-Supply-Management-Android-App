@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cvItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,5 +51,5 @@
                 android:textColor="@color/primaryVariantLight"
                 android:textSize="12dp" />
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

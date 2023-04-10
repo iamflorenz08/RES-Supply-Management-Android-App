@@ -1,6 +1,8 @@
 package com.dreambig.supplymanagementapp.Models;
 
 public class UserModel {
+    private String _id;
+    private String id_no;
     private String email;
     private PasswordModel password;
     private String photo_URL;
@@ -8,12 +10,14 @@ public class UserModel {
     private String mobile_number;
     private String department;
     private String position;
+    private Boolean isApproved;
 
     public UserModel(){
 
     }
 
-    public UserModel(String email, PasswordModel password, String photo_URL, FullNameModel full_name, String mobile_number, String department, String position) {
+    public UserModel(String id_no,String email, PasswordModel password, String photo_URL, FullNameModel full_name, String mobile_number, String department, String position) {
+        this.id_no = id_no;
         this.email = email;
         this.password = password;
         this.photo_URL = photo_URL;
@@ -21,6 +25,22 @@ public class UserModel {
         this.mobile_number = mobile_number;
         this.department = department;
         this.position = position;
+    }
+
+    public Boolean getApproved() {
+        return isApproved;
+    }
+
+    public void setApproved(Boolean approved) {
+        isApproved = approved;
+    }
+
+    public String getId_no() {
+        return id_no;
+    }
+
+    public void setId_no(String id_no) {
+        this.id_no = id_no;
     }
 
     public String getEmail() {
@@ -77,5 +97,13 @@ public class UserModel {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 }

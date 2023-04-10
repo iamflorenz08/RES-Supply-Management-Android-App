@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/stockFragment"
-        android:title="Stocks"
-        android:icon="@drawable/ic_manage_search"/>
-
-    <item
-        android:id="@+id/borrowsFragment"
-        android:title="Borrows"
+        android:id="@+id/requestFragment"
+        android:title="Request"
         android:icon="@drawable/ic_library_books"/>
 
     <item

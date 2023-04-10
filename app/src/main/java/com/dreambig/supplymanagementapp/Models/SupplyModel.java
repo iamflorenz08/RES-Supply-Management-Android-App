@@ -1,34 +1,69 @@
 package com.dreambig.supplymanagementapp.Models;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+
 public class SupplyModel {
-    private String serial_number;
+
+    private String _id;
+    private String product_code;
+    private String item_type;
+    private String photo_url;
     private String item_name;
-    private String item_image;
-    private String item_desc;
+    private String storage_no;
     private String category;
-    private Integer max_quantity;
-    private Integer available;
-    private String location;
-    private Boolean isReturnable;
+    private Integer current_supply;
+    private String unit_measurement;
+    private String source_of_fund;
+    private Double unit_cost;
+    private String desc;
 
-    public SupplyModel(String serial_number, String item_name, String item_image, String item_desc, String category, Integer max_quantity, Integer available, String location, Boolean isReturnable) {
-        this.serial_number = serial_number;
+    public SupplyModel(String _id, String product_code, String item_type, String photo_url, String item_name, String storage_no, String category, Integer current_supply, String unit_measurement, String source_of_fund, Double unit_cost, String desc) {
+        this._id = _id;
+        this.product_code = product_code;
+        this.item_type = item_type;
+        this.photo_url = photo_url;
         this.item_name = item_name;
-        this.item_image = item_image;
-        this.item_desc = item_desc;
+        this.storage_no = storage_no;
         this.category = category;
-        this.max_quantity = max_quantity;
-        this.available = available;
-        this.location = location;
-        this.isReturnable = isReturnable;
+        this.current_supply = current_supply;
+        this.unit_measurement = unit_measurement;
+        this.source_of_fund = source_of_fund;
+        this.unit_cost = unit_cost;
+        this.desc = desc;
     }
 
-    public String getSerial_number() {
-        return serial_number;
+    public String get_id() {
+        return _id;
     }
 
-    public void setSerial_number(String serial_number) {
-        this.serial_number = serial_number;
+    public void set_id(String _id) {
+        this._id = _id;
+    }
+
+    public String getProduct_code() {
+        return product_code;
+    }
+
+    public void setProduct_code(String product_code) {
+        this.product_code = product_code;
+    }
+
+    public String getItem_type() {
+        return item_type;
+    }
+
+    public void setItem_type(String item_type) {
+        this.item_type = item_type;
+    }
+
+    public String getPhoto_url() {
+        return photo_url;
+    }
+
+    public void setPhoto_url(String photo_url) {
+        this.photo_url = photo_url;
     }
 
     public String getItem_name() {
@@ -39,20 +74,12 @@ public class SupplyModel {
         this.item_name = item_name;
     }
 
-    public String getItem_image() {
-        return item_image;
+    public String getStorage_no() {
+        return storage_no;
     }
 
-    public void setItem_image(String item_image) {
-        this.item_image = item_image;
-    }
-
-    public String getItem_desc() {
-        return item_desc;
-    }
-
-    public void setItem_desc(String item_desc) {
-        this.item_desc = item_desc;
+    public void setStorage_no(String storage_no) {
+        this.storage_no = storage_no;
     }
 
     public String getCategory() {
@@ -63,35 +90,44 @@ public class SupplyModel {
         this.category = category;
     }
 
-    public Integer getMax_quantity() {
-        return max_quantity;
+    public Integer getCurrent_supply() {
+        return current_supply;
     }
 
-    public void setMax_quantity(Integer max_quantity) {
-        this.max_quantity = max_quantity;
+    public void setCurrent_supply(Integer current_supply) {
+        this.current_supply = current_supply;
     }
 
-    public Integer getAvailable() {
-        return available;
+    public String getUnit_measurement() {
+        return unit_measurement;
     }
 
-    public void setAvailable(Integer available) {
-        this.available = available;
+    public void setUnit_measurement(String unit_measurement) {
+        this.unit_measurement = unit_measurement;
     }
 
-    public String getLocation() {
-        return location;
+    public String getSource_of_fund() {
+        return source_of_fund;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setSource_of_fund(String source_of_fund) {
+        this.source_of_fund = source_of_fund;
     }
 
-    public Boolean getReturnable() {
-        return isReturnable;
+    public Double getUnit_cost() {
+        return unit_cost;
     }
 
-    public void setReturnable(Boolean returnable) {
-        isReturnable = returnable;
+    public void setUnit_cost(Double unit_cost) {
+        this.unit_cost = unit_cost;
     }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
 }

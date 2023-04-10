@@ -5,62 +5,184 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Views.StockFragments.StockFragment">
+    tools:context=".Views.RequestFragments.StockFragments.StockFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
+        app:cardCornerRadius="0dp"
         android:backgroundTint="@color/primary"
-        app:cardElevation="20dp"
-        app:contentPaddingLeft="16dp"
-        app:contentPaddingRight="16dp">
+        app:cardElevation="20dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:boxBackgroundColor="@color/secondary"
-            app:boxCornerRadiusBottomEnd="12dp"
-            app:boxCornerRadiusBottomStart="12dp"
-            app:boxCornerRadiusTopEnd="12dp"
-            app:boxCornerRadiusTopStart="12dp"
-            app:endIconMode="clear_text"
-            app:hintEnabled="false"
-            app:startIconDrawable="@drawable/ic_search"
-            app:startIconTint="@color/hintColor">
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etSearch"
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginRight="13dp"
+                android:src="@drawable/back_icon" />
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:hint="SEARCH"
-                android:imeOptions="actionSearch"
-                android:inputType="text"
-                android:padding="0dp"
-                android:textColorHint="@color/hintColor"
-                android:textSize="14dp"
-                tools:ignore="TouchTargetSizeCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="29dp"
+                android:layout_gravity="center"
+                app:boxBackgroundColor="@color/secondary"
+                app:boxCornerRadiusBottomEnd="7dp"
+                app:boxCornerRadiusBottomStart="7dp"
+                app:boxCornerRadiusTopEnd="7dp"
+                app:boxCornerRadiusTopStart="7dp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:endIconMode="clear_text"
+                app:hintEnabled="false"
+                app:startIconDrawable="@drawable/ic_search"
+                app:startIconTint="@color/hintColor">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="SEARCH"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:padding="0dp"
+                    android:textColorHint="@color/hintColor"
+                    android:textSize="13dp"
+                    tools:ignore="TouchTargetSizeCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F4F3F3"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:text="Sort: Newest"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="5dp"
+                android:fontFamily="@font/interregular"
+                android:text="View"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toStartOf="@+id/switchView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Switch
+                android:id="@+id/switchView"
+                android:layout_width="45dp"
+                android:layout_height="19dp"
+                android:background="@drawable/toggle_selector"
+                android:padding="0dp"
+                android:thumb="@null"
+                android:track="@null"
+                app:layout_constraintBottom_toBottomOf="@+id/textView13"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView13" />
+
+            <RadioGroup
+                android:id="@+id/rgItemType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView17">
+
+                <RadioButton
+                    android:id="@+id/rbAllType"
+                    android:layout_width="80dp"
+                    android:layout_height="27dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/request_radio_all_selector"
+                    android:button="@null"
+                    android:layout_weight="0.25"/>
+
+                <RadioButton
+                    android:id="@+id/rbRisType"
+                    android:layout_width="80dp"
+                    android:layout_height="27dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/request_radio_ris_selector"
+                    android:layout_weight="0.25"
+                    android:button="@null" />
+
+                <RadioButton
+                    android:id="@+id/rbIcsType"
+                    android:layout_width="80dp"
+                    android:layout_height="27dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/request_radio_ics_selector"
+                    android:layout_weight="0.25"
+                    android:button="@null" />
+
+                <RadioButton
+                    android:id="@+id/rbParType"
+                    android:layout_width="80dp"
+                    android:layout_height="27dp"
+                    android:background="@drawable/request_radio_par_selector"
+                    android:layout_weight="0.25"
+                    android:button="@null" />
+
+            </RadioGroup>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:fillViewport="true"
+            android:translationZ="-10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
                 android:paddingBottom="70dp">
-
 
                 <ProgressBar
                     android:id="@+id/progressBar"
@@ -69,59 +191,68 @@
                     android:layout_height="wrap_content"
                     android:indeterminate="true"
                     android:indeterminateTint="@color/primary"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/textView17"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="13dp"
-                    android:text="Sort: Newest"
-                    android:textColor="@color/black"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-                <TextView
-                    android:id="@+id/textView13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="13dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="@font/interregular"
-                    android:text="View"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toStartOf="@+id/switchView"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Switch
-                    android:id="@+id/switchView"
-                    android:layout_width="45dp"
-                    android:layout_height="19dp"
-                    android:background="@drawable/toggle_selector"
-                    android:padding="0dp"
-                    android:thumb="@null"
-                    android:track="@null"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView13"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textView13" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvItems"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="58dp"
-                    android:paddingBottom="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="80dp"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tvItemType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Item Type"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvItems"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="10dp" />
+                </LinearLayout>
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
+
+        <androidx.cardview.widget.CardView
+            android:visibility="gone"
+            android:id="@+id/btnViewAddedItem"
+            android:layout_width="232dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="90dp"
+            android:backgroundTint="@color/primaryVariantLight"
+            app:cardCornerRadius="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/tvViewAddedItems"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/interregular"
+                android:gravity="center"
+                android:text="View Added Items[1]"
+                android:textColor="@color/secondary"
+                android:textSize="16dp" />
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-
 
 </LinearLayout>

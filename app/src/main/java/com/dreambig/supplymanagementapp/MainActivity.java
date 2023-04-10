@@ -19,7 +19,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.dreambig.supplymanagementapp.Models.AuthResponseModel;
+import com.dreambig.supplymanagementapp.Models.UserModel;
 import com.dreambig.supplymanagementapp.Views.AuthFragments.AuthViewModel;
+import com.dreambig.supplymanagementapp.Views.MainViewModel;
 import com.dreambig.supplymanagementapp.databinding.ActivityMainBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         //View model
         mViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+
 
         //Initialize nav components
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(binding.fragmentContainerView.getId());
@@ -196,9 +199,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
 
 
     }

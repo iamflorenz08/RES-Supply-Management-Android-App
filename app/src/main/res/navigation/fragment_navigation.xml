@@ -1,20 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+ <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_navigation"
-    app:startDestination="@id/stockFragment">
+    app:startDestination="@id/requestFragment">
 
-    <fragment
-        android:id="@+id/stockFragment"
-        android:name="com.dreambig.supplymanagementapp.Views.StockFragments.StockFragment"
-        android:label="fragment_stock"
-        tools:layout="@layout/fragment_stock" />
-    <fragment
-        android:id="@+id/borrowsFragment"
-        android:name="com.dreambig.supplymanagementapp.Views.BorrowFragments.BorrowsFragment"
-        android:label="fragment_borrows"
-        tools:layout="@layout/fragment_borrows" />
     <fragment
         android:id="@+id/notificationFragment"
         android:name="com.dreambig.supplymanagementapp.Views.NotificationFragments.NotificationFragment"
@@ -111,4 +101,22 @@
         android:name="com.dreambig.supplymanagementapp.Views.SettingsFragment.AccountSettingsFragment.ChangePassword.ChangePasswordFragment"
         android:label="fragment_change_password"
         tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/requestFragment"
+        android:name="com.dreambig.supplymanagementapp.Views.RequestFragments.RequestFragment"
+        android:label="fragment_request"
+        tools:layout="@layout/fragment_request" >
+        <action
+            android:id="@+id/action_requestFragment_to_pendingFragment"
+            app:destination="@id/pendingFragment"
+            app:popUpTo="@id/fragment_navigation"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/pendingFragment"
+        android:name="com.dreambig.supplymanagementapp.Views.PendingFragment"
+        android:label="fragment_pending"
+        tools:layout="@layout/fragment_pending" >
+    </fragment>
 </navigation>

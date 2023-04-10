@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/notification_navigation"
+    app:startDestination="@id/notificationListFragment">
+
+    <fragment
+        android:id="@+id/notificationListFragment"
+        android:name="com.dreambig.supplymanagementapp.Views.NotificationFragments.NotificationListFragment"
+        android:label="fragment_notification_list"
+        tools:layout="@layout/fragment_notification_list" >
+        <action
+            android:id="@+id/action_notificationListFragment_to_requisitionDetailsFragment"
+            app:destination="@id/requisitionDetailsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/requisitionDetailsFragment2"
+        android:name="com.dreambig.supplymanagementapp.Views.RequisitionDetailsFragment"
+        android:label="fragment_requisition_details"
+        tools:layout="@layout/fragment_requisition_details" />
+</navigation>

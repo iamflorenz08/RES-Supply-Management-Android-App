@@ -33,6 +33,4 @@ public interface AuthService {
 
     @POST("/user")
     Call<UserModel> getUserInfo(@Header("Authorization")String authHeader);
-
-
 }

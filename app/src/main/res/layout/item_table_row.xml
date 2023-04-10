@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/trRow"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#DBEAFE"
+    android:paddingHorizontal="5dp">
+    <TextView
+        android:id="@+id/tvIdNo"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/interregular"
+        android:text="1"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/tvItemType"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/interregular"
+        android:text="RIS"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/tvItemName"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/interregular"
+        android:text="Bond Paper Glue"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/tvQuantity"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/interregular"
+        android:text="1002"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/tvUnitMeasurement"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/interregular"
+        android:text="Per Gallon"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/tvTotalCost"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/interregular"
+        android:text="P 120,000"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <CheckBox
+        android:id="@+id/cbCheckBox"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:padding="0dp" />
+
+    <TextView
+        android:id="@+id/tvEdit"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/interregular"
+        android:text="Edit"
+        android:textColor="@color/primaryVariantLight"
+        android:textSize="14dp" />
+</TableRow>

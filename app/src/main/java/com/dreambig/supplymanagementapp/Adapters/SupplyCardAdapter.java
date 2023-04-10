@@ -30,9 +30,9 @@ public class SupplyCardAdapter extends RecyclerView.Adapter<SupplyCardAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull SupplyCardAdapter.ViewHolder holder, int position) {
         holder.binding.tvProductName.setText(items.get(position).getItem_name());
-        holder.binding.tvSupplyCount.setText("Available: " + items.get(position).getAvailable());
+        holder.binding.tvSupplyCount.setText("Available: " + items.get(position).getCurrent_supply());
         Glide.with(holder.binding.getRoot())
-                .load(items.get(position).getItem_image())
+                .load(items.get(position).getPhoto_url())
                 .transform(new FitCenter(), new RoundedCorners(20))
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .into(holder.binding.ivSupply);

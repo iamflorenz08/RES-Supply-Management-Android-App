@@ -103,7 +103,6 @@ public class SetUpDetailsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(isValidated()){
-
                     FullNameModel fullName = new FullNameModel(
                             binding.etFirstName.getText().toString(),
                             binding.etLastName.getText().toString(),
@@ -115,6 +114,7 @@ public class SetUpDetailsFragment extends Fragment {
                             true);
 
                     UserModel user = new UserModel(
+                            binding.etIdNo.getText().toString(),
                             null,
                             password,
                             null,
@@ -175,6 +175,11 @@ public class SetUpDetailsFragment extends Fragment {
 
         if (binding.etLastName.getText().toString().trim().isEmpty()){
             binding.tilLastName.setError("Last name cannot be empty");
+            isValid = false;
+        }
+
+        if (binding.etIdNo.getText().toString().trim().isEmpty()){
+            binding.tilIdNo.setError("ID Number cannot be empty");
             isValid = false;
         }
 

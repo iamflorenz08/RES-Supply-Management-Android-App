@@ -3,72 +3,115 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bottom_sheet_bg">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bottom_sheet_bg"
+    android:paddingBottom="30dp">
 
-    <ImageView
-        android:id="@+id/ivStockImage"
-        android:layout_width="221dp"
-        android:layout_height="217dp"
-        android:layout_marginTop="10dp"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tvProductName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="31dp"
-        android:fontFamily="@font/intermedium"
-        android:text="Product Name"
-        android:textColor="@color/black"
-        android:textSize="17dp"
+        <ImageView
+            android:id="@+id/ivStockImage"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvProductName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/intermedium"
+                android:text="Product Name"
+                android:textColor="@color/black"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/tvItemType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/interregular"
+                android:text="Type: RIS (Consumable)"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/tvMeasurement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/interregular"
+                android:text="Unit of Measure: Gallon"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/tvUnitCost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/interregular"
+                android:text="Unit Cost: ₱ 0.00"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/tvSubTotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/interregular"
+                android:text="Sub-total: ₱ 0.00"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/tvAvailability"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/interregular"
+                android:text="Available: 12"
+                android:textSize="14dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="#686868"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivStockImage" />
-
-    <TextView
-        android:id="@+id/tvConsumable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/interregular"
-        android:text="Non-Consumable"
-        android:textSize="12dp"
-        app:layout_constraintStart_toStartOf="@+id/tvProductName"
-        app:layout_constraintTop_toBottomOf="@+id/tvProductName" />
-
-    <TextView
-        android:id="@+id/tvAvailability"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/intermedium"
-        android:text="Available: 12"
-        android:textColor="@color/primaryVariantLight"
-        android:textSize="12dp"
-        app:layout_constraintStart_toStartOf="@+id/tvConsumable"
-        app:layout_constraintTop_toBottomOf="@+id/tvConsumable" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     <TextView
         android:id="@+id/tvDescription"
         android:layout_width="match_parent"
-        android:layout_height="68dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="11dp"
         android:fontFamily="@font/interregular"
         android:maxLines="4"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
         android:text="Brief Description"
+        android:textColor="@color/black"
         android:textSize="12dp"
-        app:layout_constraintEnd_toEndOf="@+id/tvAvailability"
-        app:layout_constraintStart_toStartOf="@+id/tvAvailability"
-        app:layout_constraintTop_toBottomOf="@+id/tvAvailability" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view4" />
 
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#CDD4D9"
+        android:background="#686868"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
@@ -78,7 +121,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/interregular"
         android:text="Note:"
         android:textColor="@color/black"
@@ -88,84 +131,102 @@
 
     <EditText
         android:id="@+id/etNote"
-        android:layout_width="0dp"
+        android:layout_width="182dp"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:layout_marginStart="10dp"
         android:layout_marginEnd="16dp"
         android:background="@color/transparent"
         android:fontFamily="@font/interregular"
+        android:hint="Please leave a message. \n(Optional)"
         android:imeOptions="actionDone"
-        android:hint="Please leave a message. (Optional)"
+        android:inputType="text"
+        android:maxWidth="182dp"
         android:padding="0dp"
-        android:textAlignment="viewEnd"
-        android:textSize="12dp"
+        android:textAlignment="textStart"
+        android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView25"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView25"
         app:layout_constraintTop_toTopOf="@+id/textView25" />
 
-    <View
-        android:id="@+id/view1"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="12dp"
-        android:background="#CDD4D9"
-        app:layout_constraintEnd_toEndOf="parent"
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="13dp"
+        android:fontFamily="@font/interregular"
+        android:text="Quantity:"
+        android:textColor="@color/black"
+        android:textSize="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etNote" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="136dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        app:boxStrokeColor="@color/selector_input_layout"
-        app:hintEnabled="false"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view1">
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/textView27"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView27">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etQuantity"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/interregular"
-            android:hint="Quantity"
-            android:inputType="number"
+        <Button
+            android:id="@+id/btnQuantityMinus"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/primaryVariantLight"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
             android:padding="0dp"
-            android:textSize="15dp" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:text="-"
+            android:textSize="20dp"
+            app:cornerRadius="0dp" />
+
+        <EditText
+            android:id="@+id/etQuantity"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/quantity_box"
+            android:ems="5"
+            android:hint="0"
+            android:inputType="number"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/btnQuantityPlus"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/primaryVariantLight"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:padding="0dp"
+            android:text="+"
+            android:textSize="20dp"
+            app:cornerRadius="0dp" />
+    </LinearLayout>
 
     <Button
-        android:id="@+id/btnBorrow"
+        android:id="@+id/btnAddItem"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/primaryVariantLight"
         android:fontFamily="@font/intersemibold"
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:letterSpacing="0"
         android:stateListAnimator="@null"
-        android:text="Borrow"
+        android:text="Add Item"
         android:textAllCaps="false"
         android:textSize="15dp"
         app:cornerRadius="6dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/view1" />
-
-    <View
-        android:id="@+id/view3"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="12dp"
-        android:background="#CDD4D9"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
