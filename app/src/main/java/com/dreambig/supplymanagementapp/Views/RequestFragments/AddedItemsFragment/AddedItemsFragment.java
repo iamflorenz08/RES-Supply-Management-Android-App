@@ -27,10 +27,13 @@ import com.dreambig.supplymanagementapp.Utils.LoadingDialog;
 import com.dreambig.supplymanagementapp.databinding.FragmentAddedItemsBinding;
 import com.dreambig.supplymanagementapp.databinding.ItemTableRowBinding;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
+import io.socket.client.IO;
+import io.socket.client.Socket;
 
 @AndroidEntryPoint
 public class AddedItemsFragment extends Fragment {
@@ -44,11 +47,17 @@ public class AddedItemsFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentAddedItemsBinding.inflate(inflater,container, false);
         return binding.getRoot();
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -95,7 +104,6 @@ public class AddedItemsFragment extends Fragment {
                     Toast.makeText(getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 Navigation.findNavController(binding.getRoot()).navigate(R.id.action_addedItemsFragment_to_requestSubmittedFragment);
             }
         });
@@ -127,4 +135,10 @@ public class AddedItemsFragment extends Fragment {
     }
 
 
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

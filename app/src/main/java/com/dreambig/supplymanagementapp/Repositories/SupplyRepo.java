@@ -14,9 +14,12 @@ import com.dreambig.supplymanagementapp.Models.ResponseModel;
 import com.dreambig.supplymanagementapp.Models.SupplyModel;
 import com.dreambig.supplymanagementapp.Networks.SupplyService;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.socket.client.IO;
+import io.socket.client.Socket;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,14 +32,17 @@ public class SupplyRepo {
     private MutableLiveData<ArrayList<SupplyModel>> mSupplies;
     private LiveData<List<ItemModel>> mAddedItems;
     private MutableLiveData<ResponseModel> pushRequestResponse;
+    private Socket socket;
 
-    public SupplyRepo(SupplyService service, AuthRepo authRepo, ItemDatabase itemDatabase, Token token){
+    public SupplyRepo(SupplyService service, AuthRepo authRepo, ItemDatabase itemDatabase, Token token, Socket socket){
         this.service = service;
         this.authRepo = authRepo;
         this.itemDatabase = itemDatabase;
         this.token = token;
+        this.socket = socket;
         mSupplies = new MutableLiveData<>();
         pushRequestResponse = new MutableLiveData<>();
+        socket.connect();
     }
 
     public void loadmSupplies(){
@@ -77,6 +83,7 @@ public class SupplyRepo {
             @Override
             public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
                 if(response.isSuccessful()){
+                    socket.emit("notify-server", "roar");
                     pushRequestResponse.postValue(response.body());
                     if(!response.body().getError()){
                         deleteAll();

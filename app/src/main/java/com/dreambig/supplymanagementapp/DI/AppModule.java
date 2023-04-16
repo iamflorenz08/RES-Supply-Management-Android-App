@@ -21,12 +21,16 @@ import com.dreambig.supplymanagementapp.Repositories.RequisitionRepo;
 import com.dreambig.supplymanagementapp.Repositories.SavedItemRepo;
 import com.dreambig.supplymanagementapp.Repositories.SupplyRepo;
 
+import java.net.URISyntaxException;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
+import io.socket.client.IO;
+import io.socket.client.Socket;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -34,6 +38,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 @InstallIn(SingletonComponent.class)
 public class AppModule {
+
+    @Provides
+    public Socket getSocketInstance(){
+        try {
+            return IO.socket("http://10.0.2.2:3001");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     @Provides
     @Singleton
@@ -86,8 +100,8 @@ public class AppModule {
     //Supplies
     @Provides
     @Singleton
-    public SupplyRepo getSupplyRepoInstance(SupplyService service, AuthRepo authRepo, ItemDatabase itemDatabase, Token token){
-        return new SupplyRepo(service, authRepo, itemDatabase, token);
+    public SupplyRepo getSupplyRepoInstance(SupplyService service, AuthRepo authRepo, ItemDatabase itemDatabase, Token token, Socket socket){
+        return new SupplyRepo(service, authRepo, itemDatabase, token, socket);
     }
 
     @Provides
