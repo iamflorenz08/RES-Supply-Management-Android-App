@@ -36,6 +36,7 @@ import com.dreambig.supplymanagementapp.Models.ItemModel;
 import com.dreambig.supplymanagementapp.Models.SupplyModel;
 import com.dreambig.supplymanagementapp.R;
 import com.dreambig.supplymanagementapp.Utils.ItemTypeStatics;
+import com.dreambig.supplymanagementapp.Views.BottomStockDetailsFragment;
 import com.dreambig.supplymanagementapp.Views.BottomStockDetailsViewModel;
 import com.dreambig.supplymanagementapp.databinding.FragmentStockBinding;
 import com.dreambig.supplymanagementapp.databinding.StockDetailsBinding;
@@ -54,23 +55,22 @@ public class StockFragment extends Fragment {
     private FragmentStockBinding binding;
     private SupplyListAdapter supplyListAdapter;
     private SupplyCardAdapter supplyCardAdapter;
-    private StockDetailsBinding detailsBinding;
-    private BottomSheetDialog bottomSheetDialog;
-    private BottomSheetBehavior bottomSheetBehavior;
+    private BottomStockDetailsFragment bottomStockDetailsFragment;
     private Integer activeItemType;
-    private Integer id_no;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(StockViewModel.class);
-        bottomStockDetailsViewModel = new ViewModelProvider(this).get(BottomStockDetailsViewModel.class);
+        mViewModel = new ViewModelProvider(requireActivity()).get(StockViewModel.class);
+        bottomStockDetailsViewModel = new ViewModelProvider(requireActivity()).get(BottomStockDetailsViewModel.class);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentStockBinding.inflate(inflater, container, false);
+        bottomStockDetailsFragment = new BottomStockDetailsFragment();
         return binding.getRoot();
     }
 
@@ -78,16 +78,11 @@ public class StockFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //view binding for bottom sheet
-        detailsBinding = StockDetailsBinding.inflate(LayoutInflater.from(getContext()));
-        bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog_custom);
-        bottomSheetDialog.setContentView(detailsBinding.getRoot());
-        bottomSheetBehavior = bottomSheetDialog.getBehavior();
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
         //Init details
         init();
         mViewModel.init();
+        bottomStockDetailsViewModel.init();
 
         //set status bar
         setStatusBar();
@@ -173,158 +168,8 @@ public class StockFragment extends Fragment {
     }
 
     private void setBottomSheetDetails(SupplyModel supplyItem){
-        id_no = null;
-        Glide.with(detailsBinding.getRoot())
-                .load(supplyItem.getPhoto_url())
-                .transform(new FitCenter(), new RoundedCorners(15))
-                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                .into(detailsBinding.ivStockImage);
-
-        detailsBinding.tvProductName.setText(supplyItem.getItem_name());
-        detailsBinding.tvItemType.setText("Type: " + supplyItem.getItem_type());
-        detailsBinding.tvMeasurement.setText("Unit of Measure: " + supplyItem.getUnit_measurement());
-        detailsBinding.tvUnitCost.setText("Unit Cost: ₱ " + String.format("%.2f", supplyItem.getUnit_cost()));
-        detailsBinding.tvSubTotal.setText("Sub-total: ₱ 0.00");
-        detailsBinding.tvAvailability.setText("Availability: " + supplyItem.getCurrent_supply());
-        detailsBinding.tvDescription.setText(supplyItem.getDesc());
-        detailsBinding.etNote.setText(null);
-        detailsBinding.etNote.clearFocus();
-        detailsBinding.etQuantity.setText(null);
-        detailsBinding.etQuantity.clearFocus();
-        detailsBinding.btnAddItem.setEnabled(false);
-
-
-        detailsBinding.btnQuantityPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int currentQuantity = 0;
-                try{
-                    currentQuantity = Integer.parseInt(detailsBinding.etQuantity.getText().toString());
-                }
-                catch (NumberFormatException e){
-                    e.printStackTrace();
-                }
-
-                if(supplyItem.getCurrent_supply() <= currentQuantity)
-                    return;
-
-                currentQuantity++;
-                detailsBinding.tvSubTotal.setText("Sub-total: ₱ " + String.format("%.2f",computeTotalCost(supplyItem.getUnit_cost(),
-                        Double.parseDouble(String.valueOf(currentQuantity)))));
-                detailsBinding.etQuantity.setText(String.valueOf(currentQuantity));
-            }
-        });
-
-        detailsBinding.btnQuantityMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int currentQuantity = 0;
-                try{
-                    currentQuantity = Integer.parseInt(detailsBinding.etQuantity.getText().toString());
-                }
-                catch (NumberFormatException e){
-                    e.printStackTrace();
-                }
-
-                if(currentQuantity <= 0)
-                    return;
-
-                currentQuantity--;
-                detailsBinding.tvSubTotal.setText("Sub-total: ₱ " + String.format("%.2f",computeTotalCost(supplyItem.getUnit_cost(),
-                        Double.parseDouble(String.valueOf(currentQuantity)))));
-                detailsBinding.etQuantity.setText(String.valueOf(currentQuantity));
-            }
-        });
-
-        detailsBinding.etQuantity.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if(detailsBinding.etQuantity.getText().toString().isEmpty()){
-                    detailsBinding.tvSubTotal.setText("Sub-total: ₱ 0.00");
-                    return;
-                }
-
-
-
-                detailsBinding.tvSubTotal.setText("Sub-total: ₱ " + String.format("%.2f",computeTotalCost(supplyItem.getUnit_cost(),
-                        Double.parseDouble(detailsBinding.etQuantity.getText().toString()))));
-            }
-        });
-
-        mViewModel.getmAddedItems().observe(getViewLifecycleOwner(), new Observer<List<ItemModel>>() {
-            @Override
-            public void onChanged(List<ItemModel> itemModels) {
-                detailsBinding.btnAddItem.setEnabled(true);
-                if(itemModels == null || itemModels.size() == 0)
-                    return;
-
-                for(ItemModel item : itemModels){
-                    if(item.getProduct_code().equals(supplyItem.getProduct_code())){
-                        id_no = item.getId_no();
-                        detailsBinding.etQuantity.setText(String.valueOf(item.getQuantity()));
-                        break;
-                    }
-                }
-
-            }
-        });
-
-
-        detailsBinding.btnAddItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(validateInput(detailsBinding.etQuantity.getText().toString(), supplyItem.getCurrent_supply())){
-
-                    mViewModel.insertItems(
-                            id_no,
-                            supplyItem.getProduct_code(),
-                            supplyItem.getItem_type(),
-                            supplyItem.getItem_name(),
-                            supplyItem.getPhoto_url(),
-                            Integer.parseInt(detailsBinding.etQuantity.getText().toString()),
-                            supplyItem.getUnit_measurement(),
-                            computeTotalCost(supplyItem.getUnit_cost(),Double.parseDouble(detailsBinding.etQuantity.getText().toString())),
-                            detailsBinding.etNote.getText().toString()
-                    );
-
-                    bottomSheetDialog.dismiss();
-                }
-
-            }
-        });
-
-        hideKeyboard();
-        bottomSheetDialog.show();
-    }
-
-    private boolean validateInput(String input_text, int max_supply) {
-        if(input_text.isEmpty()){
-            return false;
-        }
-
-        if(Integer.parseInt(input_text) <= 0){
-
-            return false;
-        }
-
-        if(Integer.parseInt(input_text) > max_supply){
-            return false;
-        }
-        return true;
-    }
-
-    public Double computeTotalCost(Double unit_cost, Double quantity){
-        return unit_cost * quantity;
+       bottomStockDetailsViewModel.setSupplyModel(supplyItem);
+       bottomStockDetailsFragment.show(getActivity().getSupportFragmentManager(), bottomStockDetailsFragment.getTag());
     }
 
 

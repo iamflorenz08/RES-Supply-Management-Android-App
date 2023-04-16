@@ -101,7 +101,13 @@ public class MainFragment extends Fragment{
         mViewModel.getFragmentID().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer fragmentID) {
-                if(fragmentID == R.id.addedItemsFragment || fragmentID == R.id.requestHistoryFragment || fragmentID == R.id.requisitionDetailsFragment || fragmentID == R.id.requisitionDetailsFragment2 || fragmentID == R.id.requestSubmittedFragment)
+                if(fragmentID == R.id.addedItemsFragment ||
+                        fragmentID == R.id.requestHistoryFragment ||
+                        fragmentID == R.id.requisitionDetailsFragment ||
+                        fragmentID == R.id.requisitionDetailsFragment2 ||
+                        fragmentID == R.id.requestSubmittedFragment ||
+                        fragmentID == R.id.savedItemsFragment
+                )
                     binding.bottomNavigation.setVisibility(View.INVISIBLE);
                 else
                     binding.bottomNavigation.setVisibility(View.VISIBLE);

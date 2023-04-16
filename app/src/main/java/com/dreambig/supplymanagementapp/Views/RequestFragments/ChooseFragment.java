@@ -43,6 +43,13 @@ public class ChooseFragment extends Fragment implements View.OnClickListener {
             }
         });
 
+        binding.btnFavorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_chooseFragment_to_savedItemsFragment);
+            }
+        });
+
     }
 
     @Override

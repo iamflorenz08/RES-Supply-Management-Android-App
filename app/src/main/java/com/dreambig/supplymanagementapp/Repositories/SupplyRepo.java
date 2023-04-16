@@ -72,15 +72,6 @@ public class SupplyRepo {
     }
 
 
-    public LiveData<List<ItemModel>> getmAddedItems() {
-
-        return mAddedItems;
-    }
-
-    public LiveData<ArrayList<SupplyModel>> getmSupplies() {
-        return mSupplies;
-    }
-
     public void pushRequest(RequisitionModel request) {
         service.pushRequest("Bearer " + token.readToken(), request).enqueue(new Callback<ResponseModel>() {
             @Override
@@ -104,6 +95,14 @@ public class SupplyRepo {
     public MutableLiveData<ResponseModel> getPushRequestResponse() {
         pushRequestResponse.setValue(null);
         return pushRequestResponse;
+    }
+
+    public LiveData<List<ItemModel>> getmAddedItems() {
+        return mAddedItems;
+    }
+
+    public LiveData<ArrayList<SupplyModel>> getmSupplies() {
+        return mSupplies;
     }
 
     private class insertItems extends AsyncTask<ItemModel,Void,Void>{

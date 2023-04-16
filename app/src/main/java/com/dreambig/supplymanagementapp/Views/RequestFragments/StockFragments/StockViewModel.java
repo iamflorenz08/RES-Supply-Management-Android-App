@@ -102,6 +102,7 @@ public class StockViewModel extends ViewModel {
 
         supplyRepo.insertItems(itemModel);
     }
+
     public void loadmAddedItems(){
         supplyRepo.loadmAddedItems(authRepo.getAuthenticatedUser().getValue().get_id());
         if(mAddedItems == null)

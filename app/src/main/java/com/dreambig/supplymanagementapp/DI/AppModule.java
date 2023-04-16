@@ -2,13 +2,23 @@ package com.dreambig.supplymanagementapp.DI;
 
 import android.app.Application;
 
+import androidx.room.Room;
+
+import com.dreambig.supplymanagementapp.Locals.RequisitionRoom.ItemDatabase;
+import com.dreambig.supplymanagementapp.Locals.RequisitionRoom.RequistionDAO;
 import com.dreambig.supplymanagementapp.Locals.Token;
 import com.dreambig.supplymanagementapp.Networks.AuthService;
+import com.dreambig.supplymanagementapp.Networks.NotificationService;
 import com.dreambig.supplymanagementapp.Networks.ProfileService;
+import com.dreambig.supplymanagementapp.Networks.RequisitionService;
+import com.dreambig.supplymanagementapp.Networks.SavedItemService;
 import com.dreambig.supplymanagementapp.Networks.SupplyService;
 import com.dreambig.supplymanagementapp.Repositories.AuthRepo;
 import com.dreambig.supplymanagementapp.Repositories.FirebaseStorageRepo;
+import com.dreambig.supplymanagementapp.Repositories.NotificationRepo;
 import com.dreambig.supplymanagementapp.Repositories.ProfileRepo;
+import com.dreambig.supplymanagementapp.Repositories.RequisitionRepo;
+import com.dreambig.supplymanagementapp.Repositories.SavedItemRepo;
 import com.dreambig.supplymanagementapp.Repositories.SupplyRepo;
 
 import javax.inject.Singleton;
@@ -24,6 +34,34 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 @InstallIn(SingletonComponent.class)
 public class AppModule {
+
+    @Provides
+    @Singleton
+    public SavedItemRepo getSavedItemRepoInstance(SavedItemService savedItemService){
+        return new SavedItemRepo(savedItemService);
+    }
+
+    @Provides
+    @Singleton
+    public NotificationRepo getNotificationInstance(NotificationService notificationService){
+        return new NotificationRepo(notificationService);
+    }
+
+    @Provides
+    public NotificationService getNotificationService(Retrofit retrofit){
+        return retrofit.create(NotificationService.class);
+    }
+
+    @Provides
+    @Singleton
+    public RequisitionRepo getRequisitionInstance(RequisitionService requisitionService){
+        return new RequisitionRepo(requisitionService);
+    }
+
+    @Provides
+    public RequisitionService getRequisitionService(Retrofit retrofit){
+        return retrofit.create(RequisitionService.class);
+    }
 
     @Provides
     public ProfileRepo getProfileRepo(ProfileService profileService, Token tokenStorage){
@@ -47,9 +85,16 @@ public class AppModule {
 
     //Supplies
     @Provides
-    public SupplyRepo getSupplyRepoInstance(SupplyService service, AuthRepo authRepo, Application application){
-        return new SupplyRepo(service, authRepo, application);
-        //return SupplyRepo.getInstance(service, authRepo, application);
+    @Singleton
+    public SupplyRepo getSupplyRepoInstance(SupplyService service, AuthRepo authRepo, ItemDatabase itemDatabase, Token token){
+        return new SupplyRepo(service, authRepo, itemDatabase, token);
+    }
+
+    @Provides
+    @Singleton
+    public ItemDatabase getItemDatabase(Application application){
+        return Room.databaseBuilder(application.getApplicationContext(), ItemDatabase.class, "RequisitionDB")
+                .build();
     }
 
     @Provides
@@ -64,17 +109,21 @@ public class AppModule {
     }
 
     @Provides
+    public SavedItemService getSavedItemService(Retrofit retrofit){
+        return retrofit.create(SavedItemService.class);
+    }
+
+    @Provides
     public AuthService getAuthServices(Retrofit retrofit){
         return retrofit.create(AuthService.class);
     }
-
 
     //Retrofit
     @Provides
     @Singleton
     public Retrofit retrofitBuilder(){
         return new Retrofit.Builder()
-                .baseUrl("https://supply-management-restapi.vercel.app/") //localhost - http://10.0.2.2:3000/  //online host- https://supply-management-restapi.vercel.app
+                .baseUrl("http://10.0.2.2:3001") //localhost - http://10.0.2.2:3000/  //online host- https://supply-management-restapi.vercel.app
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }

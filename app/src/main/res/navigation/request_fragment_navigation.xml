@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_chooseFragment_to_requestHistoryFragment"
             app:destination="@id/requestHistoryFragment" />
+        <action
+            android:id="@+id/action_chooseFragment_to_savedItemsFragment"
+            app:destination="@id/savedItemsFragment" />
     </fragment>
     <fragment
         android:id="@+id/stockFragment"
@@ -60,4 +63,9 @@
             app:destination="@id/chooseFragment"
             app:popUpTo="@id/request_fragment_navigation" />
     </fragment>
+    <fragment
+        android:id="@+id/savedItemsFragment"
+        android:name="com.dreambig.supplymanagementapp.Views.SavedItemsFragments.SavedItemsFragment"
+        android:label="fragment_saved_items"
+        tools:layout="@layout/fragment_saved_items" />
 </navigation>
