@@ -36,6 +36,7 @@ import com.dreambig.supplymanagementapp.Models.ItemModel;
 import com.dreambig.supplymanagementapp.Models.SupplyModel;
 import com.dreambig.supplymanagementapp.R;
 import com.dreambig.supplymanagementapp.Utils.ItemTypeStatics;
+import com.dreambig.supplymanagementapp.Views.BottomStockDetailsViewModel;
 import com.dreambig.supplymanagementapp.databinding.FragmentStockBinding;
 import com.dreambig.supplymanagementapp.databinding.StockDetailsBinding;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -49,6 +50,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class StockFragment extends Fragment {
 
     private StockViewModel mViewModel;
+    private BottomStockDetailsViewModel bottomStockDetailsViewModel;
     private FragmentStockBinding binding;
     private SupplyListAdapter supplyListAdapter;
     private SupplyCardAdapter supplyCardAdapter;
@@ -57,6 +59,13 @@ public class StockFragment extends Fragment {
     private BottomSheetBehavior bottomSheetBehavior;
     private Integer activeItemType;
     private Integer id_no;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mViewModel = new ViewModelProvider(this).get(StockViewModel.class);
+        bottomStockDetailsViewModel = new ViewModelProvider(this).get(BottomStockDetailsViewModel.class);
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -68,7 +77,6 @@ public class StockFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(StockViewModel.class);
 
         //view binding for bottom sheet
         detailsBinding = StockDetailsBinding.inflate(LayoutInflater.from(getContext()));
@@ -184,6 +192,8 @@ public class StockFragment extends Fragment {
         detailsBinding.etQuantity.setText(null);
         detailsBinding.etQuantity.clearFocus();
         detailsBinding.btnAddItem.setEnabled(false);
+
+
         detailsBinding.btnQuantityPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
