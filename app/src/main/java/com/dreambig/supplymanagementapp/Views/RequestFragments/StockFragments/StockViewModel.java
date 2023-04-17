@@ -26,6 +26,7 @@ public class StockViewModel extends ViewModel {
     private AuthRepo authRepo;
     private MutableLiveData<ArrayList<SupplyModel>> mSort;
     private LiveData<ArrayList<SupplyModel>> mSupplies;
+    private LiveData<ArrayList<SupplyModel>> recommendedItemsLivedata;
     private LiveData<List<ItemModel>> mAddedItems;
     private ArrayList<SupplyModel> supplies;
 
@@ -43,8 +44,16 @@ public class StockViewModel extends ViewModel {
         if(mSupplies == null)
             mSupplies = supplyRepo.getmSupplies();
 
+        if(recommendedItemsLivedata == null)
+            recommendedItemsLivedata = supplyRepo.getRecommendedItemsLivedata();
+
 
         supplies = new ArrayList<>();
+    }
+
+    public void loadRecommendedItems(){
+        String user_id = authRepo.getAuthenticatedUser().getValue().get_id();
+        supplyRepo.loadRecommendedItems(user_id);
     }
 
     public void loadmSupplies(){
@@ -119,5 +128,9 @@ public class StockViewModel extends ViewModel {
 
     public LiveData<List<ItemModel>> getmAddedItems() {
         return mAddedItems;
+    }
+
+    public LiveData<ArrayList<SupplyModel>> getRecommendedItemsLivedata() {
+        return recommendedItemsLivedata;
     }
 }

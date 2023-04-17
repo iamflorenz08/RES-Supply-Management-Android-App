@@ -30,6 +30,7 @@ public class SupplyRepo {
     private Token token;
     private ItemDatabase itemDatabase;
     private MutableLiveData<ArrayList<SupplyModel>> mSupplies;
+    private MutableLiveData<ArrayList<SupplyModel>> recommendedItemsLivedata;
     private LiveData<List<ItemModel>> mAddedItems;
     private MutableLiveData<ResponseModel> pushRequestResponse;
     private Socket socket;
@@ -42,9 +43,25 @@ public class SupplyRepo {
         this.socket = socket;
         mSupplies = new MutableLiveData<>();
         pushRequestResponse = new MutableLiveData<>();
+        recommendedItemsLivedata = new MutableLiveData<>();
         socket.connect();
     }
 
+    public void loadRecommendedItems(String user_id){
+        service.getRecommend(user_id).enqueue(new Callback<ArrayList<SupplyModel>>() {
+            @Override
+            public void onResponse(Call<ArrayList<SupplyModel>> call, Response<ArrayList<SupplyModel>> response) {
+                if(response.isSuccessful()){
+                    recommendedItemsLivedata.postValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<SupplyModel>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
     public void loadmSupplies(){
         String token = "Bearer " + authRepo.getToken();
         service.getDetails(token).enqueue(new Callback<ArrayList<SupplyModel>>() {
@@ -110,6 +127,10 @@ public class SupplyRepo {
 
     public LiveData<ArrayList<SupplyModel>> getmSupplies() {
         return mSupplies;
+    }
+
+    public LiveData<ArrayList<SupplyModel>> getRecommendedItemsLivedata() {
+        return recommendedItemsLivedata;
     }
 
     private class insertItems extends AsyncTask<ItemModel,Void,Void>{

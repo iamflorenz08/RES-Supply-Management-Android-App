@@ -1,13 +1,9 @@
 package com.dreambig.supplymanagementapp.Views.RequestFragments.StockFragments;
-
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -17,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,10 +21,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.bitmap.FitCenter;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+
+import com.dreambig.supplymanagementapp.Adapters.RecommendAdapter;
 import com.dreambig.supplymanagementapp.Adapters.SupplyCardAdapter;
 import com.dreambig.supplymanagementapp.Adapters.SupplyListAdapter;
 import com.dreambig.supplymanagementapp.Models.ItemModel;
@@ -39,9 +32,6 @@ import com.dreambig.supplymanagementapp.Utils.ItemTypeStatics;
 import com.dreambig.supplymanagementapp.Views.BottomStockDetailsFragment;
 import com.dreambig.supplymanagementapp.Views.BottomStockDetailsViewModel;
 import com.dreambig.supplymanagementapp.databinding.FragmentStockBinding;
-import com.dreambig.supplymanagementapp.databinding.StockDetailsBinding;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +45,7 @@ public class StockFragment extends Fragment {
     private FragmentStockBinding binding;
     private SupplyListAdapter supplyListAdapter;
     private SupplyCardAdapter supplyCardAdapter;
+    private RecommendAdapter recommendAdapter;
     private BottomStockDetailsFragment bottomStockDetailsFragment;
     private Integer activeItemType;
 
@@ -71,6 +62,9 @@ public class StockFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentStockBinding.inflate(inflater, container, false);
         bottomStockDetailsFragment = new BottomStockDetailsFragment();
+        supplyListAdapter = new SupplyListAdapter();
+        supplyCardAdapter = new SupplyCardAdapter();
+        recommendAdapter = new RecommendAdapter();
         return binding.getRoot();
     }
 
@@ -78,11 +72,14 @@ public class StockFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         //Init details
         init();
         mViewModel.init();
         bottomStockDetailsViewModel.init();
+        mViewModel.loadmAddedItems();
+        mViewModel.loadRecommendedItems();
+        binding.rvRecommend.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        binding.rvRecommend.setAdapter(recommendAdapter);
 
         //set status bar
         setStatusBar();
@@ -93,6 +90,20 @@ public class StockFragment extends Fragment {
         //Live data observers
         suppliesObserver();
         sortObserver();
+
+        mViewModel.getRecommendedItemsLivedata().observe(getViewLifecycleOwner(), new Observer<ArrayList<SupplyModel>>() {
+            @Override
+            public void onChanged(ArrayList<SupplyModel> supplyModels) {
+                if(supplyModels.size() <= 0 ||  supplyModels == null){
+                    binding.tvRecommend.setVisibility(View.GONE);
+                    binding.rvRecommend.setVisibility(View.GONE);
+                    return;
+                }
+                binding.tvRecommend.setVisibility(View.VISIBLE);
+                binding.rvRecommend.setVisibility(View.VISIBLE);
+                recommendAdapter.setRecommend_items(supplyModels);
+            }
+        });
 
         //Change View
         stockView();
@@ -118,7 +129,14 @@ public class StockFragment extends Fragment {
             }
         });
 
-        mViewModel.loadmAddedItems();
+        recommendAdapter.setRecommendAdapterListener(new RecommendAdapter.RecommendAdapterListener() {
+            @Override
+            public void OnRecommendItemClick(SupplyModel recommend_item) {
+                setBottomSheetDetails(recommend_item);
+            }
+        });
+
+
         mViewModel.getmAddedItems().observe(getViewLifecycleOwner(), new Observer<List<ItemModel>>() {
             @Override
             public void onChanged(List<ItemModel> itemModels) {
@@ -222,8 +240,6 @@ public class StockFragment extends Fragment {
 
     private void init(){
         binding.rvItems.setNestedScrollingEnabled(false);
-        supplyListAdapter = new SupplyListAdapter();
-        supplyCardAdapter = new SupplyCardAdapter();
 
         binding.refreshLayout.setColorSchemeColors(getResources().getColor(R.color.primary));
         binding.refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

@@ -52,7 +52,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 Date date = inputFormat.parse(notifications.get(position).getCreatedAt());
                 if(notifications.get(position).getApproval().equals("to_be_approved")){
                     Glide.with(holder.binding.getRoot()).load(R.drawable.tba_icon_active).into(holder.binding.ivIcon);
-                    holder.binding.tvMessage.setText("Your request has been submitted.");
+                    holder.binding.tvMessage.setText("Your " +  odt.getMonth() + " " + odt.getDayOfMonth() + ", " + odt.getYear() +" request has been submitted.");
                     holder.binding.tvTime.setText(DateUtils.getRelativeTimeSpanString(date.getTime(), Calendar.getInstance().getTimeInMillis(), DateUtils.MINUTE_IN_MILLIS));
                 }
                 else if(notifications.get(position).getApproval().equals("on_going")){
