@@ -18,8 +18,9 @@ public class SupplyModel {
     private String source_of_fund;
     private Double unit_cost;
     private String desc;
+    private Integer buffer;
 
-    public SupplyModel(String _id, String product_code, String item_type, String photo_url, String item_name, String storage_no, String category, Integer current_supply, String unit_measurement, String source_of_fund, Double unit_cost, String desc) {
+    public SupplyModel(String _id, String product_code, String item_type, String photo_url, String item_name, String storage_no, String category, Integer current_supply, String unit_measurement, String source_of_fund, Double unit_cost, String desc, Integer buffer) {
         this._id = _id;
         this.product_code = product_code;
         this.item_type = item_type;
@@ -32,6 +33,7 @@ public class SupplyModel {
         this.source_of_fund = source_of_fund;
         this.unit_cost = unit_cost;
         this.desc = desc;
+        this.buffer = buffer;
     }
 
     public String get_id() {
@@ -130,4 +132,11 @@ public class SupplyModel {
         this.desc = desc;
     }
 
+    public Integer getBuffer() {
+        return buffer;
+    }
+
+    public void setBuffer(Integer buffer) {
+        this.buffer = buffer;
+    }
 }

@@ -23,6 +23,7 @@ import com.dreambig.supplymanagementapp.Repositories.SupplyRepo;
 
 import java.net.URISyntaxException;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;

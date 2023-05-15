@@ -31,7 +31,7 @@ public class SupplyListAdapter extends RecyclerView.Adapter<SupplyListAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull SupplyListAdapter.ViewHolder holder, int position) {
         holder.binding.tvProductName.setText(items.get(position).getItem_name());
-        holder.binding.tvSupplyCount.setText("Available: " + items.get(position).getCurrent_supply());
+        holder.binding.tvSupplyCount.setText("Available: " + (items.get(position).getCurrent_supply() - items.get(position).getBuffer()));
         Glide.with(holder.binding.getRoot())
                 .load(items.get(position).getPhoto_url())
                 .transform(new FitCenter(), new RoundedCorners(20))

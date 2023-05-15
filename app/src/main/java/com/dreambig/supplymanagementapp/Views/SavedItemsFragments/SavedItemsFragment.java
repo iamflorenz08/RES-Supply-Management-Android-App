@@ -72,7 +72,6 @@ public class SavedItemsFragment extends Fragment implements SavedItemsAdapter.Sa
         bottomSheetBehavior.setPeekHeight(0);
         bottomSheetBehavior.setDraggable(false);
 
-
         savedItemsViewModel.getSavedItemsLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<SavedItemModel>>() {
             @Override
             public void onChanged(ArrayList<SavedItemModel> savedItemModels) {

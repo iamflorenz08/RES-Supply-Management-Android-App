@@ -81,7 +81,7 @@ public class StockViewModel extends ViewModel {
             if (item.getItem_name().toLowerCase().contains(text.toLowerCase()) && item.getItem_type().contains(item_type_string))
                 supplies.add(item);
         }
-        mSort.setValue(supplies);
+        mSort.postValue(supplies);
     }
 
     public void insertItems(

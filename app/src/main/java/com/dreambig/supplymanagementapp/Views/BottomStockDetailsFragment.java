@@ -105,7 +105,7 @@ public class BottomStockDetailsFragment extends BottomSheetDialogFragment {
         binding.tvMeasurement.setText("Unit of Measure: " + supplyItem.getUnit_measurement());
         binding.tvUnitCost.setText("Unit Cost: ₱ " + String.format("%.2f", supplyItem.getUnit_cost()));
         binding.tvSubTotal.setText("Sub-total: ₱ 0.00");
-        binding.tvAvailability.setText("Availability: " + supplyItem.getCurrent_supply());
+        binding.tvAvailability.setText("Availability: " + (supplyItem.getCurrent_supply() - supplyItem.getBuffer()));
         binding.tvDescription.setText(supplyItem.getDesc());
         binding.etNote.setText(null);
         binding.etNote.clearFocus();
@@ -142,7 +142,7 @@ public class BottomStockDetailsFragment extends BottomSheetDialogFragment {
                     e.printStackTrace();
                 }
 
-                if(supplyItem.getCurrent_supply() <= currentQuantity)
+                if((supplyItem.getCurrent_supply() - supplyItem.getBuffer()) <= currentQuantity)
                     return;
 
                 currentQuantity++;
@@ -216,7 +216,7 @@ public class BottomStockDetailsFragment extends BottomSheetDialogFragment {
         binding.btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(validateInput(binding.etQuantity.getText().toString(), supplyItem.getCurrent_supply())){
+                if(validateInput(binding.etQuantity.getText().toString(), (supplyItem.getCurrent_supply() - supplyItem.getBuffer()))){
 
                     stockViewModel.insertItems(
                             id_no,

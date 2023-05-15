@@ -60,9 +60,6 @@ public class SignInFragment extends Fragment {
         //Sign In listener;
         signInListener();
 
-        //on back listener
-        backListener();
-
         //Forgot Password Listener
         forgotPasswordListener();
 
@@ -75,13 +72,7 @@ public class SignInFragment extends Fragment {
 
     }
 
-    private void backListener() {
-        binding.btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {Navigation.findNavController(view).popBackStack();
-            }
-        });
-    }
+
 
     private void signInListener() {
         binding.btnSignIn.setOnClickListener(new View.OnClickListener() {
