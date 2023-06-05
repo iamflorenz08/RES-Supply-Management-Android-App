@@ -138,7 +138,7 @@ public class AppModule {
     @Singleton
     public Retrofit retrofitBuilder(){
         return new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:3001") //localhost - http://10.0.2.2:3000/  //online host- https://supply-management-restapi.vercel.app
+                .baseUrl("https://supply-management-restapi.vercel.app") //localhost - http://10.0.2.2:3000/  //online host- https://supply-management-restapi.vercel.app
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }

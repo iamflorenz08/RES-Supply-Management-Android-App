@@ -36,12 +36,16 @@
 
         <TextView
             android:id="@+id/tvItemName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="Product Name"
             android:textColor="@color/black"
             android:textSize="14dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toStartOf="@+id/cbDelete"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/cardView7"
             app:layout_constraintTop_toTopOf="@+id/cardView7" />
 
