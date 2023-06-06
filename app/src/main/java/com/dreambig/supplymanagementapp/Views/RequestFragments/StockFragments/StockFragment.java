@@ -55,6 +55,8 @@ public class StockFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mViewModel = new ViewModelProvider(requireActivity()).get(StockViewModel.class);
         bottomStockDetailsViewModel = new ViewModelProvider(requireActivity()).get(BottomStockDetailsViewModel.class);
+        mViewModel.init();
+        mViewModel.loadmAddedItems();
     }
 
     @Override
@@ -74,9 +76,8 @@ public class StockFragment extends Fragment {
 
         //Init details
         init();
-        mViewModel.init();
+
         bottomStockDetailsViewModel.init();
-        mViewModel.loadmAddedItems();
         mViewModel.loadRecommendedItems();
         binding.rvRecommend.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvRecommend.setAdapter(recommendAdapter);

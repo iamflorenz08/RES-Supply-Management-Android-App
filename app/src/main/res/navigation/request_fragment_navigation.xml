@@ -67,5 +67,9 @@
         android:id="@+id/savedItemsFragment"
         android:name="com.dreambig.supplymanagementapp.Views.SavedItemsFragments.SavedItemsFragment"
         android:label="fragment_saved_items"
-        tools:layout="@layout/fragment_saved_items" />
+        tools:layout="@layout/fragment_saved_items" >
+        <action
+            android:id="@+id/action_savedItemsFragment_to_addedItemsFragment"
+            app:destination="@id/addedItemsFragment" />
+    </fragment>
 </navigation>

@@ -103,6 +103,30 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView39" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btnViewAddedItem"
+            android:layout_width="232dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="90dp"
+            android:backgroundTint="@color/primaryVariantLight"
+            app:cardCornerRadius="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/tvViewAddedItems"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/interregular"
+                android:gravity="center"
+                android:text="View Added Items[1]"
+                android:textColor="@color/secondary"
+                android:textSize="16dp" />
+        </androidx.cardview.widget.CardView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.card.MaterialCardView

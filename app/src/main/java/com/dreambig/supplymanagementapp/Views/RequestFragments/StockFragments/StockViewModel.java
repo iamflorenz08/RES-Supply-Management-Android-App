@@ -48,6 +48,7 @@ public class StockViewModel extends ViewModel {
             recommendedItemsLivedata = supplyRepo.getRecommendedItemsLivedata();
 
 
+
         supplies = new ArrayList<>();
     }
 

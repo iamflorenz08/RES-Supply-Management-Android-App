@@ -1,6 +1,7 @@
 package com.dreambig.supplymanagementapp.Views.SavedItemsFragments;
 
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.graphics.Color;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
@@ -20,14 +22,17 @@ import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.dreambig.supplymanagementapp.Adapters.SavedItemsAdapter;
+import com.dreambig.supplymanagementapp.Models.ItemModel;
 import com.dreambig.supplymanagementapp.Models.SavedItemModel;
 import com.dreambig.supplymanagementapp.R;
 import com.dreambig.supplymanagementapp.Views.BottomStockDetailsFragment;
 import com.dreambig.supplymanagementapp.Views.BottomStockDetailsViewModel;
+import com.dreambig.supplymanagementapp.Views.RequestFragments.StockFragments.StockViewModel;
 import com.dreambig.supplymanagementapp.databinding.FragmentSavedItemsBinding;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -36,6 +41,7 @@ public class SavedItemsFragment extends Fragment implements SavedItemsAdapter.Sa
 
     private FragmentSavedItemsBinding binding;
     private SavedItemsViewModel savedItemsViewModel;
+    private StockViewModel stockViewModel;
     private BottomStockDetailsFragment bottomStockDetailsFragment;
     private BottomStockDetailsViewModel bottomStockDetailsViewModel;
     private SavedItemsAdapter savedItemsAdapter;
@@ -47,8 +53,12 @@ public class SavedItemsFragment extends Fragment implements SavedItemsAdapter.Sa
         super.onCreate(savedInstanceState);
         savedItemsViewModel = new ViewModelProvider(this).get(SavedItemsViewModel.class);
         bottomStockDetailsViewModel = new ViewModelProvider(requireActivity()).get(BottomStockDetailsViewModel.class);
+        stockViewModel = new ViewModelProvider(this).get(StockViewModel.class);
+
         bottomStockDetailsViewModel.init();
         savedItemsViewModel.init();
+        stockViewModel.init();
+        stockViewModel.loadmAddedItems();
     }
 
     @Override
@@ -117,7 +127,24 @@ public class SavedItemsFragment extends Fragment implements SavedItemsAdapter.Sa
         });
 
 
+        stockViewModel.getmAddedItems().observe(getViewLifecycleOwner(), new Observer<List<ItemModel>>() {
+            @Override
+            public void onChanged(List<ItemModel> itemModels) {
+                binding.btnViewAddedItem.setVisibility(View.GONE);
+                if(itemModels == null || itemModels.size() == 0)
+                    return;
 
+                binding.tvViewAddedItems.setText("View Added Items["+ itemModels.size() +"]");
+                binding.btnViewAddedItem.setVisibility(View.VISIBLE);
+            }
+        });
+
+        binding.btnViewAddedItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_savedItemsFragment_to_addedItemsFragment);
+            }
+        });
     }
 
 
